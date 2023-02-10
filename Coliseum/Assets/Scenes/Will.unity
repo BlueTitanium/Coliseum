@@ -503,6 +503,7 @@ GameObject:
   - component: {fileID: 902250121}
   - component: {fileID: 902250119}
   - component: {fileID: 902250123}
+  - component: {fileID: 902250125}
   m_Layer: 0
   m_Name: TestEnemy(Melee)
   m_TagString: Enemy
@@ -527,6 +528,10 @@ MonoBehaviour:
   maxTimer: 2
   player: {fileID: 319104}
   speed: 3
+  enemyRb: {fileID: 902250125}
+  enemyCol: {fileID: 902250123}
+  kb: 1000
+  cooldown: 0
 --- !u!212 &902250121
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -616,12 +621,33 @@ PolygonCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   m_Points:
     m_Paths:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
+--- !u!50 &902250125
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902250118}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 100
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1102197870
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,6 +659,7 @@ GameObject:
   - component: {fileID: 1102197873}
   - component: {fileID: 1102197872}
   - component: {fileID: 1102197871}
+  - component: {fileID: 1102197874}
   m_Layer: 0
   m_Name: TestEnemy(Ranged)
   m_TagString: Untagged
@@ -659,8 +686,11 @@ MonoBehaviour:
   projectileSpeed: 100
   player: {fileID: 319104}
   testProjectile: {fileID: 6706291348689005940, guid: 2765e3a54daef4a85852fb63de869635, type: 3}
+  enemyRb: {fileID: 1102197874}
   distance: 100
   direction: {x: 0, y: 0}
+  kb: 1000
+  cooldown: 0
 --- !u!212 &1102197872
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -728,6 +758,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1102197874
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102197870}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 100
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1186649209
 GameObject:
   m_ObjectHideFlags: 0

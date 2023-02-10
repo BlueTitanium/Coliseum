@@ -11,10 +11,18 @@ public class RangedEnemy : MonoBehaviour
     float speed, projectileSpeed;
     public GameObject player;
     public GameObject testProjectile;
+    public Rigidbody2D enemyRb;
 
     [SerializeField]
     float distance;
     public Vector2 direction;
+
+    // The following vars are for testing purposes only
+    [SerializeField]
+    int kb;
+    [SerializeField]
+    float cooldown = 0f;
+    // The above are to be removed
 
     // Update is called once per frame
     void Update()
@@ -36,5 +44,23 @@ public class RangedEnemy : MonoBehaviour
         if (timer > 0) {
             timer -= Time.deltaTime;
         }
+
+        // The following lines are for testing purposes only
+        if (Input.GetKey("space")) {
+            if (cooldown <= 0) {
+                Knockback(kb);
+                cooldown = 1f;
+            }
+        }
+
+        if (cooldown > 0) {
+            cooldown -= Time.deltaTime;
+        }
+        // The above is to be removed
+    }
+
+    public void Knockback(int kb) {
+        enemyRb.AddForce(-1 * direction * new Vector2(kb, kb));
+        timer += 1f;
     }
 }
