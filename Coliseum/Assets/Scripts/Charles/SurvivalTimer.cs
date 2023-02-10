@@ -17,7 +17,7 @@ public class SurvivalTimer : MonoBehaviour
         }
 
         if(isOn){
-            timer.text = $"{Mathf.Round(curTime)}:{Mathf.Round(curTime * 100f) % 100}";
+            timer.text = $"{Mathf.Floor(curTime) : 00}:{Mathf.Floor(curTime * 100f) % 100 : 00}";
         }
     }
 

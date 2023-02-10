@@ -7,6 +7,7 @@ public class ArenaUIManager : MonoBehaviour
 {
     public static ArenaUIManager Instance;
     public RectTransform upgradeSlot;
+    public RectTransform timer;
 
     private void Awake()
     {
@@ -23,7 +24,6 @@ public class ArenaUIManager : MonoBehaviour
     }
 
     private void Start() {
-        showUpgradeSlots();
     }
 
     public void showUpgradeSlots(){
@@ -56,6 +56,32 @@ public class ArenaUIManager : MonoBehaviour
         .OnStart(()=>{
             upgradeSlot.GetComponent<CanvasGroup>().interactable = false;
         })
+        .Append(
+            upgradeSlot
+            .DOAnchorPosY(Screen.height + upgradeSlot.sizeDelta.y, 1f)
+            .SetEase(Ease.InBack)
+        );
+    }
+
+    public void showTimer(){
+        Sequence sq = DOTween.Sequence();
+        sq
+        .SetId("showTimer")
+        .Append(
+            timer
+            .DOAnchorPosY(Screen.height + timer.sizeDelta.y, 0.1f)
+        )
+        .Append(
+            timer
+            .DOAnchorPosY(Screen.height - timer.sizeDelta.y, 1f)
+            .SetEase(Ease.OutBack)
+        );
+    }
+
+    public void hideTimer(){
+        Sequence sq = DOTween.Sequence();
+        sq
+        .SetId("hideTimer")
         .Append(
             upgradeSlot
             .DOAnchorPosY(Screen.height + upgradeSlot.sizeDelta.y, 1f)
