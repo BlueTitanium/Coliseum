@@ -87,7 +87,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1560817774426236161}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -494,6 +494,8 @@ MonoBehaviour:
   - {fileID: 1560817774290804617}
   maxHP: 5
   invincibilityTime: 0.3
+  playerHPBar: {fileID: 0}
+  playerStaminaBar: {fileID: 0}
   speed: 5
   dashSpeed: 10
   dashTime: 0.3
