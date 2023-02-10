@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController p;
+
     private Rigidbody2D rb2d;
     public Transform pivotPoint;
     public Animator playerBodyAnimator;
@@ -16,6 +19,8 @@ public class PlayerController : MonoBehaviour
     float curHP = 5f;
     public float invincibilityTime = .3f;
     float canTakeDamage = 0f;
+    public Image playerHPBar;
+    public Image playerStaminaBar;
 
     public float speed = 5f;
     public float dashSpeed = 10f;
@@ -38,8 +43,10 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        p = this;
         rb2d = GetComponent<Rigidbody2D>();
         curHP = maxHP;
+        playerHPBar.fillAmount = curHP / maxHP;
     }
 
     // Update is called once per frame
@@ -83,6 +90,7 @@ public class PlayerController : MonoBehaviour
         {
             dashCDLeft -= Time.deltaTime;
         }
+        playerStaminaBar.fillAmount = (dashCDTime - dashCDLeft) / dashCDTime;
         if (Input.GetMouseButtonDown(0) && !attacking && attackCDLeft <= 0)
         {
             StartCoroutine(Attack());
@@ -151,6 +159,7 @@ public class PlayerController : MonoBehaviour
             curHP -= amount;
             canTakeDamage = invincibilityTime;
             playerBodyAnimator.SetTrigger("Damage");
+            playerHPBar.fillAmount = curHP / maxHP;
         } 
         
         if(curHP <= 0)
