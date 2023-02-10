@@ -39,15 +39,15 @@ public class SurvivalTimer : MonoBehaviour
         .AppendInterval(15f)
         .Append(
             timer
-            .DOColor(Color.red, 16f)
+            .DOColor(Color.red, 1f)
             .SetEase(Ease.InCubic)
         )
         .Join(
             timer.rectTransform
             .DOShakeAnchorPos(
                 duration: 16f,
-                strength: 20,
-                vibrato: 50
+                strength: 10f,
+                vibrato: 30
             )
             .SetEase(Ease.InOutCubic)
         )
