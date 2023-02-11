@@ -56,6 +56,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (dashCDLeft > 0f)
+        {
+            dashCDLeft -= Time.deltaTime;
+        }
+        if (canTakeDamage > 0)
+        {
+            canTakeDamage -= Time.deltaTime;
+        }
+
         if (!attacking)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -90,10 +99,7 @@ public class PlayerController : MonoBehaviour
             dashCDLeft = dashCDTime;
             StartCoroutine(handleDashTrails(dashTime));
         }
-        if(dashCDLeft > 0f)
-        {
-            dashCDLeft -= Time.deltaTime;
-        }
+        
         playerStaminaBar.fillAmount = (dashCDTime - dashCDLeft) / dashCDTime;
         dashReadyText.alpha = playerStaminaBar.fillAmount;
         if (Input.GetMouseButtonDown(0) && !attacking && attackCDLeft <= 0)
@@ -112,10 +118,7 @@ public class PlayerController : MonoBehaviour
         {
             torso.transform.localScale = new Vector3(Mathf.Abs(torso.transform.localScale.x), torso.transform.localScale.y, torso.transform.localScale.z);
         }
-        if(canTakeDamage > 0)
-        {
-            canTakeDamage -= Time.deltaTime;
-        }
+        
     }
     IEnumerator handleDashTrails(float time)
     {
