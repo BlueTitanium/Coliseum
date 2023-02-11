@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController p;
+
     private Rigidbody2D rb2d;
     public Transform pivotPoint;
     public Animator playerBodyAnimator;
@@ -16,6 +20,9 @@ public class PlayerController : MonoBehaviour
     float curHP = 5f;
     public float invincibilityTime = .3f;
     float canTakeDamage = 0f;
+    public Image playerHPBar;
+    public TextMeshProUGUI curHPText, maxHPText, dashReadyText;
+    public Image playerStaminaBar;
 
     public float speed = 5f;
     public float dashSpeed = 10f;
@@ -29,7 +36,7 @@ public class PlayerController : MonoBehaviour
     float horizontal;
     float vertical;
 
-    bool attacking = false;
+    public bool attacking = false;
     public Animator attackAnim;
     public float attackSpeed = 1;
     public float attackCD = .5f;
@@ -38,13 +45,26 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        p = this;
         rb2d = GetComponent<Rigidbody2D>();
         curHP = maxHP;
+        playerHPBar.fillAmount = curHP / maxHP;
+        curHPText.text = "" + curHP;
+        maxHPText.text = "" + maxHP;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (dashCDLeft > 0f)
+        {
+            dashCDLeft -= Time.deltaTime;
+        }
+        if (canTakeDamage > 0)
+        {
+            canTakeDamage -= Time.deltaTime;
+        }
+
         if (!attacking)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -79,10 +99,9 @@ public class PlayerController : MonoBehaviour
             dashCDLeft = dashCDTime;
             StartCoroutine(handleDashTrails(dashTime));
         }
-        if(dashCDLeft > 0f)
-        {
-            dashCDLeft -= Time.deltaTime;
-        }
+        
+        playerStaminaBar.fillAmount = (dashCDTime - dashCDLeft) / dashCDTime;
+        dashReadyText.alpha = playerStaminaBar.fillAmount;
         if (Input.GetMouseButtonDown(0) && !attacking && attackCDLeft <= 0)
         {
             StartCoroutine(Attack());
@@ -99,10 +118,7 @@ public class PlayerController : MonoBehaviour
         {
             torso.transform.localScale = new Vector3(Mathf.Abs(torso.transform.localScale.x), torso.transform.localScale.y, torso.transform.localScale.z);
         }
-        if(canTakeDamage > 0)
-        {
-            canTakeDamage -= Time.deltaTime;
-        }
+        
     }
     IEnumerator handleDashTrails(float time)
     {
@@ -119,21 +135,25 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Attack()
     {
-        attacking = true;
+        
         attackCDLeft = attackCD;
         if (dashLeft > 0)
         {
+            attacking = true;
             attackAnim.SetTrigger("DashAttack");
+            yield return new WaitUntil(() => attackAnim.GetCurrentAnimatorStateInfo(0).IsName("Player_DashAttack"));
             yield return new WaitUntil(() => attackAnim.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+            attacking = false;
         }
         else
         {
+            attacking = true;
             attackAnim.SetFloat("AttackSpeed", attackSpeed);
             attackAnim.SetTrigger("Attack");
+            yield return new WaitUntil(() => attackAnim.GetCurrentAnimatorStateInfo(0).IsName("Player_RegAttack"));
             yield return new WaitUntil(() => attackAnim.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
-        }        
-        attacking = false;
-        yield return null;
+            attacking = false;
+        }
     }
 
     public void TakeKnockback(Vector2 dir, float time)
@@ -151,6 +171,9 @@ public class PlayerController : MonoBehaviour
             curHP -= amount;
             canTakeDamage = invincibilityTime;
             playerBodyAnimator.SetTrigger("Damage");
+            playerHPBar.fillAmount = curHP / maxHP;
+            curHPText.text = "" + curHP;
+            maxHPText.text = "" + maxHP;
         } 
         
         if(curHP <= 0)
