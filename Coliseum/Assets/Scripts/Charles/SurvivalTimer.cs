@@ -49,7 +49,7 @@ public class SurvivalTimer : MonoBehaviour
                 strength: 10f,
                 vibrato: 30
             )
-            .SetEase(Ease.InOutCubic)
+            .SetEase(Ease.Linear)
         )
         .AppendInterval(1.5f)
         .OnComplete(()=>{
