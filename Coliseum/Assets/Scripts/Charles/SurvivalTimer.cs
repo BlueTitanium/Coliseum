@@ -56,7 +56,7 @@ public class SurvivalTimer : MonoBehaviour
             ArenaUIManager.Instance.isTimerOn = false;
             ArenaUIManager.Instance.hideTimer();
             // change phase
-            ArenaManager.Instance.phase = 2;
+            ArenaManager.Instance.phase = 3;
         });
     
     }

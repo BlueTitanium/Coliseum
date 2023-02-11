@@ -9,7 +9,8 @@ public class ArenaManager : MonoBehaviour
 
     // statics
     public int round;
-    public int phase;   // 0: normal battle, 1: survival,  2: after battle(upgrade/lose)
+    public int phase;   // 0: normal battle, 1: survival, 2: boss fight  3: after battle(upgrade/lose)
+    public int loopPhase; // 0: first battle, 1: second battle, 2: survival, 3: boss
     public float damageMultiplier = 1;
     public float healthMultiplier = 1;
     public float speedMultiplier = 1;
@@ -35,6 +36,7 @@ public class ArenaManager : MonoBehaviour
     private void Start() {
         _pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         phase = 0;
+        loopPhase = 0;
         StartCoroutine(phaseLoop());
     }
 
@@ -62,19 +64,23 @@ public class ArenaManager : MonoBehaviour
 
     IEnumerator phaseLoop(){
         ArenaUIManager.Instance.resetUI();
+        List<int> phaseIndex = new List<int>{0, 0, 1, 2};
         while(true){
-            yield return new WaitUntil(()=> (phase != 2));
-            // normal battle/ survival
+            yield return new WaitUntil(()=> (phase != 3));
+            // normal battle/ survival/ boss
+            phase = phaseIndex[loopPhase];
+            Debug.Log($"phase type: {phase}");
             switchPhase(phase);
-
-            yield return new WaitUntil(()=> Input.GetKeyDown(KeyCode.K) || phase == 2);
-            phase = 2;
-            yield return new WaitUntil(()=> (phase == 2));
+            ArenaUIManager.Instance.showRoundTitle();
+            yield return new WaitUntil(()=> Input.GetKeyDown(KeyCode.K) || phase == 3);
+            phase = 3;
             // upgrade
-            switchPhase(2);
+            yield return new WaitUntil(()=> (phase == 3));
+            switchPhase(3);
 
             //
             round++;
+            loopPhase = round % 4;
         }
     }
 
@@ -88,6 +94,10 @@ public class ArenaManager : MonoBehaviour
             ArenaUIManager.Instance.showTimer();
             break;
             case 2:
+            // boss
+            break;
+            case 3:
+            // upgrade
             ArenaUIManager.Instance.showUpgradeSlots();
             break;
         }
