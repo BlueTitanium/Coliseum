@@ -8,6 +8,7 @@ public class ArenaUIManager : MonoBehaviour
     public static ArenaUIManager Instance;
     public RectTransform upgradeSlot;
     public RectTransform timer;
+    public bool isTimerOn;
 
     private void Awake()
     {
@@ -24,28 +25,28 @@ public class ArenaUIManager : MonoBehaviour
     }
 
     private void Start() {
+        isTimerOn = false;
     }
-
-    public void showUpgradeSlots(){
+    private void Update() {
+        
+    }
+    public Tween showUpgradeSlots(){
         Sequence sq = DOTween.Sequence();
-        sq
+        return sq
         .SetId("showUpgradeSlots")
         .OnStart(()=>{
             upgradeSlot.GetComponent<CanvasGroup>().interactable = false;
-
+            upgradeSlot.localPosition = new Vector3(0, Screen.height / 2 + upgradeSlot.sizeDelta.y, 0);
         })
         .Append(
             upgradeSlot
-            .DOAnchorPosY(Screen.height + upgradeSlot.sizeDelta.y, 0.1f)
-        )
-        .Append(
-            upgradeSlot
-            .DOAnchorPosY(0, 1f)
+            .DOAnchorPosY(0f, 1f)
             .SetEase(Ease.OutBack)
         )
         .OnComplete(()=>{
             upgradeSlot.GetComponent<CanvasGroup>().interactable = true;
         });
+
     }
 
 
@@ -58,24 +59,33 @@ public class ArenaUIManager : MonoBehaviour
         })
         .Append(
             upgradeSlot
-            .DOAnchorPosY(Screen.height + upgradeSlot.sizeDelta.y, 1f)
+            .DOAnchorPosY(Screen.height / 2 + upgradeSlot.sizeDelta.y, 1f)
             .SetEase(Ease.InBack)
-        );
+        )
+        .AppendInterval(1f)
+        .OnComplete(()=>{
+            // change phase
+            ArenaManager.Instance.phase = Random.Range(0, 2);
+        });
     }
 
-    public void showTimer(){
+    public Tween showTimer(){
         Sequence sq = DOTween.Sequence();
-        sq
+        return sq
         .SetId("showTimer")
+        .OnStart(()=>{
+            timer.localPosition = new Vector3(0, Screen.height / 2 + timer.sizeDelta.y, 0);
+        })
         .Append(
             timer
-            .DOAnchorPosY(Screen.height + timer.sizeDelta.y, 0.1f)
-        )
-        .Append(
-            timer
-            .DOAnchorPosY(Screen.height - timer.sizeDelta.y, 1f)
+            .DOAnchorPosY(Screen.height / 2 - timer.sizeDelta.y, 1f)
             .SetEase(Ease.OutBack)
-        );
+        )
+        .AppendInterval(0.5f)
+        .OnComplete(()=>{
+            isTimerOn = true;
+            timer.GetComponent<SurvivalTimer>().startTimer();
+        });
     }
 
     public void hideTimer(){
@@ -83,10 +93,14 @@ public class ArenaUIManager : MonoBehaviour
         sq
         .SetId("hideTimer")
         .Append(
-            upgradeSlot
-            .DOAnchorPosY(Screen.height + upgradeSlot.sizeDelta.y, 1f)
+            timer
+            .DOAnchorPosY(Screen.height / 2 + timer.sizeDelta.y, 1f)
             .SetEase(Ease.InBack)
         );
     }
 
+    public void resetUI(){
+        timer.localPosition = new Vector3(0, Screen.height / 2 + timer.sizeDelta.y, 0);
+        upgradeSlot.localPosition = new Vector3(0, Screen.height / 2 + upgradeSlot.sizeDelta.y, 0);
+    }
 }

@@ -34,7 +34,7 @@ public class ArenaManager : MonoBehaviour
     }
     private void Start() {
         _pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-
+        phase = 0;
         StartCoroutine(phaseLoop());
     }
 
@@ -61,33 +61,34 @@ public class ArenaManager : MonoBehaviour
 
 
     IEnumerator phaseLoop(){
-        ArenaUIManager.Instance.hideTimer();
-        ArenaUIManager.Instance.hideUpgradeSlots();
+        ArenaUIManager.Instance.resetUI();
         while(true){
-            yield return new WaitUntil(()=> Input.GetKeyDown(KeyCode.K));
+            yield return new WaitUntil(()=> (phase != 2));
             // normal battle/ survival
-            switchPhase(Random.Range(0, 2));
+            switchPhase(phase);
 
-
-            yield return new WaitUntil(()=> Input.GetKeyDown(KeyCode.K));
+            yield return new WaitUntil(()=> Input.GetKeyDown(KeyCode.K) || phase == 2);
+            phase = 2;
+            yield return new WaitUntil(()=> (phase == 2));
             // upgrade
             switchPhase(2);
+
+            //
+            round++;
         }
     }
 
     public void switchPhase(int p){
         switch(p){
             case 0:
-            ArenaUIManager.Instance.showUpgradeSlots();
-            ArenaUIManager.Instance.hideTimer();
+            // normal battle
             break;
             case 1:
-            ArenaUIManager.Instance.hideUpgradeSlots();
+            // survival
             ArenaUIManager.Instance.showTimer();
             break;
             case 2:
-            ArenaUIManager.Instance.hideUpgradeSlots();
-            ArenaUIManager.Instance.hideTimer();
+            ArenaUIManager.Instance.showUpgradeSlots();
             break;
         }
     }

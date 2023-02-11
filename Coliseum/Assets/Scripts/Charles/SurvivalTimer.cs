@@ -12,34 +12,35 @@ public class SurvivalTimer : MonoBehaviour
     bool isOn = false;
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.R)){
-            startTimer();
-        }
 
-        if(isOn){
-            timer.text = $"{Mathf.Floor(curTime) : 00}:{Mathf.Floor(curTime * 100f) % 100 : 00}";
+        if(ArenaUIManager.Instance.isTimerOn){
+            timer.text = $"{Mathf.Floor(curTime):00}:{Mathf.Floor(curTime * 100f) % 100:00}";
         }
     }
 
-    void startTimer(){
+    public void startTimer(){
 
 
         Sequence sq = DOTween.Sequence();
         sq
         .SetId("timer")
         .OnStart(()=>{
+            // initialize data
             isOn = true;
+            timer.color = Color.white;
+            timer.text = "30:00";
             curTime = maxTime;
+            // start timer
             DOTween
             .To(()=>curTime, x=>curTime = x, 0f, 30f)
             .SetEase(Ease.OutSine);
             
 
         })
-        .AppendInterval(15f)
+        .AppendInterval(13f)
         .Append(
             timer
-            .DOColor(Color.red, 1f)
+            .DOColor(Color.red, 3f)
             .SetEase(Ease.InCubic)
         )
         .Join(
@@ -51,7 +52,14 @@ public class SurvivalTimer : MonoBehaviour
             )
             .SetEase(Ease.InOutCubic)
         )
-        .OnComplete(()=>{ isOn = false; });
+        .AppendInterval(1.5f)
+        .OnComplete(()=>{
+            isOn = false;
+            ArenaUIManager.Instance.isTimerOn = false;
+            ArenaUIManager.Instance.hideTimer();
+            // change phase
+            ArenaManager.Instance.phase = 2;
+        });
     
     }
 }
