@@ -9,9 +9,10 @@ public class RangedEnemy : MonoBehaviour
 
     [SerializeField]
     float speed, projectileSpeed;
-    public GameObject player;
     public GameObject testProjectile;
     public Rigidbody2D enemyRb;
+
+    GameObject player;
 
     [SerializeField]
     float distance;
@@ -23,6 +24,10 @@ public class RangedEnemy : MonoBehaviour
     [SerializeField]
     float cooldown = 0f;
     // The above are to be removed
+
+    void Start() {
+        player = GameObject.FindWithTag("Player");
+    }
 
     // Update is called once per frame
     void Update()

@@ -101,6 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockback: 500
   lifetime: 3
+  damage: 10
+  hitstun: 1
   direction: {x: 0, y: 0}
 --- !u!50 &-7051919252896441977
 Rigidbody2D:

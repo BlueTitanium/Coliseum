@@ -7,7 +7,7 @@ public class MeleeEnemy : MonoBehaviour
     [SerializeField]
     float knockback, timer, maxTimer;
 
-    public GameObject player;
+    GameObject player;
     public float speed;
     public Rigidbody2D enemyRb;
     public Collider2D enemyCol;
@@ -19,6 +19,10 @@ public class MeleeEnemy : MonoBehaviour
     [SerializeField]
     float cooldown = 0f;
     // The above are to be removed
+
+    void Start() {
+        player = GameObject.FindWithTag("Player");
+    }
 
     // Update is called once per frame
     void Update()
