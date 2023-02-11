@@ -5,7 +5,7 @@ using UnityEngine;
 public class RangedEnemy : MonoBehaviour
 {
     [SerializeField]
-    float timer, maxTimer, range;
+    float timer, maxTimer, range, invuln;
 
     [SerializeField]
     float speed, projectileSpeed;
@@ -42,10 +42,17 @@ public class RangedEnemy : MonoBehaviour
         if (timer > 0) {
             timer -= Time.deltaTime;
         }
+
+        if (invuln > 0) {
+            invuln -= Time.deltaTime;
+        }
     }
 
-    public void Knockback(float kb) {
-        enemyRb.AddForce(-1 * direction * new Vector2(kb, kb));
-        timer += 1f;
+    public void Knockback(float kb, float iframes) {
+        if (invuln <= 0) {
+            enemyRb.AddForce(-1 * direction * new Vector2(kb, kb));
+            timer += 1f;
+            invuln += iframes;
+        }
     }
 }

@@ -6,6 +6,8 @@ public class Attack : MonoBehaviour
 {
     GameObject player;
     float damage, knockback;
+    [SerializeField]
+    float iframes;
 
     void Start() {
         player = GameObject.FindWithTag("Player");
@@ -15,10 +17,10 @@ public class Attack : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "MeleeEnemy") {
-            other.GetComponent<MeleeEnemy>().Knockback(knockback);
+            other.GetComponent<MeleeEnemy>().Knockback(knockback, iframes);
         }
         if (other.tag == "RangedEnemy") {
-            other.GetComponent<RangedEnemy>().Knockback(knockback);
+            other.GetComponent<RangedEnemy>().Knockback(knockback, iframes);
         }
     }
 }
