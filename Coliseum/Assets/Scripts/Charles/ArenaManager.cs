@@ -16,6 +16,7 @@ public class ArenaManager : MonoBehaviour
     public float speedMultiplier = 1;
     public float dashCDmultiplier = 1;
     public float invincibilityTimeMultiplier = 1;
+    public float enemyStatsMultiplier = 1;
 
 
     // playerController
@@ -67,6 +68,7 @@ public class ArenaManager : MonoBehaviour
         List<int> phaseIndex = new List<int>{0, 0, 1, 2};
         while(true){
             yield return new WaitUntil(()=> (phase != 3));
+
             // normal battle/ survival/ boss
             phase = phaseIndex[loopPhase];
             Debug.Log($"phase type: {phase}");
@@ -78,7 +80,7 @@ public class ArenaManager : MonoBehaviour
             yield return new WaitUntil(()=> (phase == 3));
             switchPhase(3);
 
-            //
+            // increment round
             round++;
             loopPhase = round % 4;
         }
