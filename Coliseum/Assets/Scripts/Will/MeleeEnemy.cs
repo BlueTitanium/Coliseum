@@ -5,7 +5,7 @@ using UnityEngine;
 public class MeleeEnemy : MonoBehaviour
 {
     [SerializeField]
-    float knockback, timer, maxTimer, damage;
+    float knockback, timer, maxTimer, damage, invuln;
 
     GameObject player;
     public float speed;
@@ -28,6 +28,10 @@ public class MeleeEnemy : MonoBehaviour
             timer -= Time.deltaTime;
             enemyCol.isTrigger = false;
         }
+
+        if (invuln > 0) {
+            invuln -= Time.deltaTime;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other) {
@@ -38,8 +42,12 @@ public class MeleeEnemy : MonoBehaviour
         }
     }
 
-    public void Knockback(float kb) {
-        enemyRb.AddForce(-1 * direction * new Vector2(kb, kb));
-        timer += 1f;
+    public void Knockback(float kb, float iframes) {
+        if (invuln <= 0) {
+            enemyRb.AddForce(-1 * direction * new Vector2(kb, kb));
+            Debug.Log("test");
+            timer += 1f;
+            invuln = iframes;
+        }
     }
 }

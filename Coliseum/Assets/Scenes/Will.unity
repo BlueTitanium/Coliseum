@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783447b940add4b2d8a876e25ed5b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iframes: 0.25
 --- !u!1 &531667088 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1203909875, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
@@ -226,6 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783447b940add4b2d8a876e25ed5b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iframes: 0.25
 --- !u!1 &536269664 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 970670157, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
@@ -243,6 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783447b940add4b2d8a876e25ed5b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iframes: 0.25
 --- !u!1 &607990971 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1020157187, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
@@ -260,6 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783447b940add4b2d8a876e25ed5b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iframes: 0.25
 --- !u!1 &822860111
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,6 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783447b940add4b2d8a876e25ed5b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iframes: 0.25
 --- !u!1 &902250118
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,11 +436,10 @@ MonoBehaviour:
   timer: 0
   maxTimer: 2
   damage: 20
+  invuln: 0
   speed: 3
   enemyRb: {fileID: 902250125}
   enemyCol: {fileID: 902250123}
-  kb: 1000
-  cooldown: 0
 --- !u!212 &902250121
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -586,14 +590,13 @@ MonoBehaviour:
   timer: 0
   maxTimer: 2
   range: 3
+  invuln: 0
   speed: 3
   projectileSpeed: 100
   testProjectile: {fileID: 6706291348689005940, guid: 2765e3a54daef4a85852fb63de869635, type: 3}
   enemyRb: {fileID: 1102197874}
   distance: 100
   direction: {x: 0, y: 0}
-  kb: 1000
-  cooldown: 0
 --- !u!212 &1102197872
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -699,6 +702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783447b940add4b2d8a876e25ed5b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iframes: 0.25
 --- !u!1 &1250827936 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1339481634, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
@@ -716,6 +720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783447b940add4b2d8a876e25ed5b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iframes: 0.25
 --- !u!1001 &1720541613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -823,6 +828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783447b940add4b2d8a876e25ed5b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iframes: 0.25
 --- !u!1 &2030813694 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1767120592, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
@@ -840,6 +846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783447b940add4b2d8a876e25ed5b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iframes: 0.25
 --- !u!1 &2069179082 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 126674443, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
@@ -857,3 +864,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783447b940add4b2d8a876e25ed5b912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iframes: 0.25
