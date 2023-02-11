@@ -58,7 +58,7 @@ public class MeleeEnemy : MonoBehaviour
         }
     }
 
-    public void Knockback(int kb) {
+    public void Knockback(float kb) {
         enemyRb.AddForce(-1 * direction * new Vector2(kb, kb));
         timer += 1f;
     }
