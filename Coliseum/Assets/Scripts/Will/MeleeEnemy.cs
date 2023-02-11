@@ -13,13 +13,6 @@ public class MeleeEnemy : MonoBehaviour
     public Collider2D enemyCol;
     Vector2 direction;
 
-    // The following vars are for testing purposes only
-    [SerializeField]
-    int kb;
-    [SerializeField]
-    float cooldown = 0f;
-    // The above are to be removed
-
     void Start() {
         player = GameObject.FindWithTag("Player");
     }
@@ -35,19 +28,6 @@ public class MeleeEnemy : MonoBehaviour
             timer -= Time.deltaTime;
             enemyCol.isTrigger = false;
         }
-
-        // The following lines are for testing purposes only
-        if (Input.GetKey("space")) {
-            if (cooldown <= 0) {
-                Knockback(kb);
-                cooldown = 1f;
-            }
-        }
-
-        if (cooldown > 0) {
-            cooldown -= Time.deltaTime;
-        }
-        // The above is to be removed
     }
 
     void OnTriggerEnter2D(Collider2D other) {
