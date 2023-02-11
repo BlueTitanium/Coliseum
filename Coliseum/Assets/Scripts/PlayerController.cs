@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public float invincibilityTime = .3f;
     float canTakeDamage = 0f;
     public Image playerHPBar;
+    public TextMeshProUGUI curHPText, maxHPText, dashReadyText;
     public Image playerStaminaBar;
 
     public float speed = 5f;
@@ -47,6 +49,8 @@ public class PlayerController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         curHP = maxHP;
         playerHPBar.fillAmount = curHP / maxHP;
+        curHPText.text = "" + curHP;
+        maxHPText.text = "" + maxHP;
     }
 
     // Update is called once per frame
@@ -91,6 +95,7 @@ public class PlayerController : MonoBehaviour
             dashCDLeft -= Time.deltaTime;
         }
         playerStaminaBar.fillAmount = (dashCDTime - dashCDLeft) / dashCDTime;
+        dashReadyText.alpha = playerStaminaBar.fillAmount;
         if (Input.GetMouseButtonDown(0) && !attacking && attackCDLeft <= 0)
         {
             StartCoroutine(Attack());
@@ -160,6 +165,8 @@ public class PlayerController : MonoBehaviour
             canTakeDamage = invincibilityTime;
             playerBodyAnimator.SetTrigger("Damage");
             playerHPBar.fillAmount = curHP / maxHP;
+            curHPText.text = "" + curHP;
+            maxHPText.text = "" + maxHP;
         } 
         
         if(curHP <= 0)
