@@ -5,24 +5,22 @@ using UnityEngine;
 public class RangedEnemy : MonoBehaviour
 {
     [SerializeField]
-    float timer, maxTimer, range;
+    float timer, maxTimer, range, invuln;
 
     [SerializeField]
     float speed, projectileSpeed;
-    public GameObject player;
     public GameObject testProjectile;
     public Rigidbody2D enemyRb;
+
+    GameObject player;
 
     [SerializeField]
     float distance;
     public Vector2 direction;
 
-    // The following vars are for testing purposes only
-    [SerializeField]
-    int kb;
-    [SerializeField]
-    float cooldown = 0f;
-    // The above are to be removed
+    void Start() {
+        player = GameObject.FindWithTag("Player");
+    }
 
     // Update is called once per frame
     void Update()
@@ -46,22 +44,16 @@ public class RangedEnemy : MonoBehaviour
             timer -= Time.deltaTime;
         }
 
-        // The following lines are for testing purposes only
-        if (Input.GetKey("space")) {
-            if (cooldown <= 0) {
-                Knockback(kb);
-                cooldown = 1f;
-            }
+        if (invuln > 0) {
+            invuln -= Time.deltaTime;
         }
-
-        if (cooldown > 0) {
-            cooldown -= Time.deltaTime;
-        }
-        // The above is to be removed
     }
 
-    public void Knockback(int kb) {
-        enemyRb.AddForce(-1 * direction * new Vector2(kb, kb));
-        timer += 1f;
+    public void Knockback(float kb, float iframes) {
+        if (invuln <= 0) {
+            enemyRb.AddForce(-1 * direction * new Vector2(kb, kb));
+            timer += 1f;
+            invuln += iframes;
+        }
     }
 }
