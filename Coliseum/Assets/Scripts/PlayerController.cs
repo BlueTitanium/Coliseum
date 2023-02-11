@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     float horizontal;
     float vertical;
 
-    bool attacking = false;
+    public bool attacking = false;
     public Animator attackAnim;
     public float attackSpeed = 1;
     public float attackCD = .5f;
@@ -135,21 +135,25 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Attack()
     {
-        attacking = true;
+        
         attackCDLeft = attackCD;
         if (dashLeft > 0)
         {
+            attacking = true;
             attackAnim.SetTrigger("DashAttack");
+            yield return new WaitUntil(() => attackAnim.GetCurrentAnimatorStateInfo(0).IsName("Player_DashAttack"));
             yield return new WaitUntil(() => attackAnim.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+            attacking = false;
         }
         else
         {
+            attacking = true;
             attackAnim.SetFloat("AttackSpeed", attackSpeed);
             attackAnim.SetTrigger("Attack");
+            yield return new WaitUntil(() => attackAnim.GetCurrentAnimatorStateInfo(0).IsName("Player_RegAttack"));
             yield return new WaitUntil(() => attackAnim.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
-        }        
-        attacking = false;
-        yield return null;
+            attacking = false;
+        }
     }
 
     public void TakeKnockback(Vector2 dir, float time)
