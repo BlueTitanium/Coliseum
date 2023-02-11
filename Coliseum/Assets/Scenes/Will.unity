@@ -387,7 +387,6 @@ MonoBehaviour:
   knockback: 1500
   timer: 0
   maxTimer: 2
-  player: {fileID: 1772947757}
   speed: 3
   enemyRb: {fileID: 902250125}
   enemyCol: {fileID: 902250123}
@@ -545,7 +544,6 @@ MonoBehaviour:
   range: 3
   speed: 3
   projectileSpeed: 100
-  player: {fileID: 1772947757}
   testProjectile: {fileID: 6706291348689005940, guid: 2765e3a54daef4a85852fb63de869635, type: 3}
   enemyRb: {fileID: 1102197874}
   distance: 100
@@ -980,8 +978,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1386068916, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
+      propertyPath: m_text
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071624900, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
+      propertyPath: m_text
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1560817775463939409, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560817775463939409, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1560817775463939410, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
@@ -1033,11 +1043,6 @@ PrefabInstance:
 --- !u!4 &1720541614 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1560817775463939410, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
-  m_PrefabInstance: {fileID: 1720541613}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1772947757 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1560817775463939409, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
   m_PrefabInstance: {fileID: 1720541613}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2055533989

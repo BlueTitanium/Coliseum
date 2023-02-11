@@ -5,9 +5,14 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField]
-    float knockback, lifetime;
+    float knockback, lifetime, damage, hitstun;
 
     public Vector2 direction;
+    GameObject player;
+
+    void Start() {
+        player = GameObject.FindWithTag("Player");
+    }
 
     void Update() {
         lifetime -= Time.deltaTime;
@@ -18,9 +23,8 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player") {
-            Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
-            rb.AddForce(direction * new Vector2(knockback, knockback));
-            Debug.Log(direction * new Vector2(knockback, knockback));
+            player.GetComponent<PlayerController>().TakeKnockback(direction * new Vector2(knockback, knockback), hitstun);
+            player.GetComponent<PlayerController>().TakeDamage(damage);
         }
         if (other.tag != "Enemy" && other.tag != "Projectile") {
             Destroy(gameObject);
