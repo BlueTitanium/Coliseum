@@ -9,7 +9,6 @@ public class SurvivalTimer : MonoBehaviour
     [SerializeField] private float maxTime = 30;
     [SerializeField] private float curTime;
     public TextMeshProUGUI timer;
-    bool isOn = false;
 
     private void Update() {
 
@@ -26,7 +25,7 @@ public class SurvivalTimer : MonoBehaviour
         .SetId("timer")
         .OnStart(()=>{
             // initialize data
-            isOn = true;
+            ArenaUIManager.Instance.isTimerOn = true;
             timer.color = Color.white;
             timer.text = "30:00";
             curTime = maxTime;
@@ -54,7 +53,6 @@ public class SurvivalTimer : MonoBehaviour
         )
         .AppendInterval(1.5f)
         .OnComplete(()=>{
-            isOn = false;
             ArenaUIManager.Instance.isTimerOn = false;
             ArenaUIManager.Instance.hideTimer();
             // change phase
