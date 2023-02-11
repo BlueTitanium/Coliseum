@@ -16,7 +16,8 @@ public class ArenaManager : MonoBehaviour
     public float speedMultiplier = 1;
     public float dashCDmultiplier = 1;
     public float invincibilityTimeMultiplier = 1;
-    public float enemyStatsMultiplier = 1;
+    public float enemyDamageMultiplier = 1;
+    public float enemyHealthMultiplier = 1;
 
 
     // playerController
