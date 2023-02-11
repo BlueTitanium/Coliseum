@@ -5,7 +5,7 @@ using UnityEngine;
 public class MeleeEnemy : MonoBehaviour
 {
     [SerializeField]
-    float knockback, timer, maxTimer;
+    float knockback, timer, maxTimer, damage;
 
     GameObject player;
     public float speed;
@@ -52,9 +52,8 @@ public class MeleeEnemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player" && timer <= 0) {
-            Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
-            rb.AddForce(direction * new Vector2(knockback, knockback));
-            Debug.Log(direction * new Vector2(knockback, knockback));
+            player.GetComponent<PlayerController>().TakeKnockback(direction, knockback);
+            player.GetComponent<PlayerController>().TakeDamage(damage);
             timer = maxTimer;
         }
     }

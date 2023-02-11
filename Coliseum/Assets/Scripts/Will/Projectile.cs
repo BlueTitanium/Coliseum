@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField]
-    float knockback, lifetime, damage, hitstun;
+    float knockback, lifetime, damage;
 
     public Vector2 direction;
     GameObject player;
@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player") {
-            player.GetComponent<PlayerController>().TakeKnockback(direction * new Vector2(knockback, knockback), hitstun);
+            player.GetComponent<PlayerController>().TakeKnockback(direction, knockback);
             player.GetComponent<PlayerController>().TakeDamage(damage);
         }
         if (other.tag != "Enemy" && other.tag != "Projectile") {
