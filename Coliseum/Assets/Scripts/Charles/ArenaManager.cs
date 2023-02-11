@@ -20,6 +20,10 @@ public class ArenaManager : MonoBehaviour
     public float enemyHealthMultiplier = 1;
 
 
+    // spawner
+    public EnemySpawner _es;
+
+
     // playerController
     private PlayerController _pc;
     private void Awake()
@@ -42,8 +46,10 @@ public class ArenaManager : MonoBehaviour
         StartCoroutine(phaseLoop());
     }
 
+    public void adjustStats(){
 
-    public void adjustStats(string ab){
+    }
+    public void adjustSingleStats(string ab){
         switch(ab){
             case "damage":
             //
@@ -75,6 +81,8 @@ public class ArenaManager : MonoBehaviour
             Debug.Log($"phase type: {phase}");
             switchPhase(phase);
             ArenaUIManager.Instance.showRoundTitle();
+            
+
             yield return new WaitUntil(()=> Input.GetKeyDown(KeyCode.K) || phase == 3);
             phase = 3;
             // upgrade
@@ -91,6 +99,7 @@ public class ArenaManager : MonoBehaviour
         switch(p){
             case 0:
             // normal battle
+            _es.spawnEnemies();
             break;
             case 1:
             // survival
