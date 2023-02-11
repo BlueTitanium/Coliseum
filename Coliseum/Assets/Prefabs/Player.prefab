@@ -2735,6 +2735,7 @@ MonoBehaviour:
   - {fileID: 1560817774723385432}
   - {fileID: 1560817774426236163}
   knockBackTimeLeft: 0
+  attacking: 0
   attackAnim: {fileID: 1560817776154086000}
   attackSpeed: 1
   attackCD: 0.5
