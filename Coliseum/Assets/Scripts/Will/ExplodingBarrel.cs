@@ -5,7 +5,7 @@ using UnityEngine;
 public class ExplodingBarrel : MonoBehaviour
 {
     //public Animator spriteAnimator;
-    //public GameObject explosion;
+    public GameObject explosion;
     public Rigidbody2D rb;
 
     [SerializeField]
@@ -41,7 +41,7 @@ public class ExplodingBarrel : MonoBehaviour
     }
 
     public void Explode() {
-        //Instantiate(explosion, transform.position, transform.rotation);
+        Instantiate(explosion, transform.position, transform.rotation);
         Debug.Log("test");
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, blastRadius);
         foreach (Collider2D other in colliders) {
