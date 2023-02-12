@@ -27,6 +27,11 @@ public class MeleeEnemy : MonoBehaviour
     public bool disabled = false;
     void Start() {
         player = PlayerController.p.transform.gameObject;
+        if (ArenaManager.Instance != null)
+        {
+            maxHP *= ArenaManager.Instance.enemyHealthMultiplier;
+            damage *= ArenaManager.Instance.enemyDamageMultiplier;
+        }
         curHP = maxHP;
     }
 

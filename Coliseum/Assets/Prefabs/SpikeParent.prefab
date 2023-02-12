@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 865143869088645735}
   - component: {fileID: 865143869088645732}
   - component: {fileID: 865143869088645733}
+  - component: {fileID: 1717105142}
   m_Layer: 0
   m_Name: Spike
   m_TagString: Untagged
@@ -164,3 +165,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1717105142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865143869088645728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff35eb1c61a747b6aabe8a892032ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteAnimator: {fileID: 865143869088645733}
+  damage: 20
+  time: 0.2
+  maxInterval: 3
