@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     public float speed = 5f;
     public float dashTime = .3f;
-    float dashLeft = 0f;
+    public float dashLeft = 0f;
     public float dashCDTime = .5f;
     float dashCDLeft = 0f;
     public DashTrail[] dashTrails;
@@ -59,6 +60,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         if (dashCDLeft > 0f)
         {
             dashCDLeft -= Time.deltaTime;
@@ -116,6 +122,10 @@ public class PlayerController : MonoBehaviour
             {
                 attackCDLeft -= Time.deltaTime;
             }
+        }
+        else
+        {
+            rb2d.velocity = Vector2.zero;
         }
         playerBodyAnimator.SetBool("Moving", !Mathf.Approximately(rb2d.velocity.magnitude, 0));
         if(horizontal < 0)
@@ -178,17 +188,25 @@ public class PlayerController : MonoBehaviour
 
     public void TakeKnockback(Vector2 dir, float time)
     {
-        knockBackTimeLeft = time;
-        horizontal = dir.x;
-        vertical = dir.y;
-        rb2d.velocity = dir;
+        if (dashLeft <= 0)
+        {
+            knockBackTimeLeft = time;
+            horizontal = dir.x;
+            vertical = dir.y;
+            rb2d.velocity = dir;
+        }
+        
     }
 
     public void TakeDamage(float amount)
     {
-        if(curHP >= 0)
+        if (curHP > 0 && dashLeft <= 0)
         {
             curHP -= amount;
+            if(curHP < 0)
+            {
+                curHP = 0;
+            }
             canTakeDamage = invincibilityTime;
             playerBodyAnimator.SetTrigger("Damage");
             playerHPBar.fillAmount = curHP / maxHP;

@@ -9,24 +9,30 @@ public class Projectile : MonoBehaviour
 
     public Vector2 direction;
     GameObject player;
+    public GameObject explosion;
 
     void Start() {
+        print("spawned");
         player = GameObject.FindWithTag("Player");
+        Destroy(gameObject, lifetime);
     }
 
     void Update() {
-        lifetime -= Time.deltaTime;
-        if (lifetime <= 0) {
-            Destroy(gameObject);
-        }
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.tag == "Player") {
-            player.GetComponent<PlayerController>().TakeKnockback(direction, knockback);
-            player.GetComponent<PlayerController>().TakeDamage(damage);
+        if (other.gameObject.CompareTag("Player")) {
+            if(PlayerController.p.dashLeft <= 0)
+            {
+                player.GetComponent<PlayerController>().TakeKnockback(direction, knockback);
+                player.GetComponent<PlayerController>().TakeDamage(damage);
+                Instantiate(explosion, transform.position, explosion.transform.rotation);
+                print("player");
+                Destroy(gameObject);
+            }
         }
-        if (other.tag != "Enemy" && other.tag != "Projectile") {
+        if (other.gameObject.CompareTag("Wall")){
+            print("wall");
             Destroy(gameObject);
         }
     }
