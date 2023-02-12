@@ -178,7 +178,6 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Attack()
     {
-        
         attackCDLeft = attackCD;
         if (dashLeft > 0)
         {
@@ -226,8 +225,10 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        if (curHP > 0 && dashLeft <= 0 && canTakeDamage <= 0)
+
+        if (disabled || (curHP > 0 && dashLeft <= 0 && canTakeDamage <= 0))
         {
+            CameraShake.cs.cameraShake(.3f, 3.3f);
             DamageNumberSpawner.Instance.spawnDamageNumberOnce(transform.position, (int) amount);
             curHP -= amount;
             if(curHP < 0)

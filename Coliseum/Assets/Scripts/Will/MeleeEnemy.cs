@@ -116,6 +116,7 @@ public class MeleeEnemy : MonoBehaviour
     {
         if(invuln <= 0)
         {
+            CameraShake.cs.cameraShake(.3f, 2.5f);
             curHP -= damage;
             DamageNumberSpawner.Instance.spawnDamageNumberOnce(transform.position, (int)damage);
             spriteAnimator.SetTrigger("Damage");

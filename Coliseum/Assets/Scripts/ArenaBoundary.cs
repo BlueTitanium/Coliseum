@@ -20,6 +20,7 @@ public class ArenaBoundary : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerController.p.disabled = true;
             PlayerController.p.TakeKnockback(new Vector2(0, 0), 10f);
             PlayerController.p.TakeDamage(PlayerController.p.maxHP);
             PlayerController.p.GetComponent<Animation>().Play();

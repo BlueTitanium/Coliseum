@@ -110,6 +110,7 @@ public class RangedEnemy : MonoBehaviour
     {
         if (invuln <= 0)
         {
+            CameraShake.cs.cameraShake(.3f, 1.4f);
             DamageNumberSpawner.Instance.spawnDamageNumberOnce(transform.position, (int)damage);
             curHP -= damage;
             spriteAnimator.SetTrigger("Damage");
