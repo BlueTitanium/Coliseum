@@ -117,34 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: icons_0
-      rect:
-        serializedVersion: 2
-        x: 347
-        y: 261
-        width: 158
-        height: 113
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 370c5f0041d4dda498daffe8e58df57b
-      internalID: -1182749240
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: icons_1
       rect:
         serializedVersion: 2
-        x: 587
-        y: 258
-        width: 155
-        height: 118
+        x: 278
+        y: 249
+        width: 162
+        height: 114
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +141,10 @@ TextureImporter:
       name: icons_2
       rect:
         serializedVersion: 2
-        x: 237
-        y: 43
-        width: 162
-        height: 146
+        x: 618
+        y: 257
+        width: 137
+        height: 120
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,10 +162,10 @@ TextureImporter:
       name: icons_3
       rect:
         serializedVersion: 2
-        x: 443
+        x: 237
         y: 43
         width: 149
-        height: 146
+        height: 149
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,10 +183,10 @@ TextureImporter:
       name: icons_4
       rect:
         serializedVersion: 2
-        x: 652
-        y: 40
-        width: 153
-        height: 146
+        x: 444
+        y: 43
+        width: 150
+        height: 149
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -217,6 +196,27 @@ TextureImporter:
       bones: []
       spriteID: a3b60c5547a924042ba0bd5aaac6c1c7
       internalID: -652444698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons_5
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 39
+        width: 154
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb21d84480f319446b80d1f09ea9ed5e
+      internalID: -1707258128
       vertices: []
       indices: 
       edges: []
@@ -232,6 +232,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      icons_5: -1707258128
       icons_0: -1182749240
       icons_4: -652444698
       icons_2: 1939009190

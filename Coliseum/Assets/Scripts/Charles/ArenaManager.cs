@@ -11,10 +11,10 @@ public enum phaseType{
 }
 public enum upgradeType{
     hpUp,
-    DMGUp,
-    atkCDDown,
     dashSpdUp,
-    atkSpdUp
+    atkSpdUp,
+    atkCDDown,
+    DMGUp
     
 }
 

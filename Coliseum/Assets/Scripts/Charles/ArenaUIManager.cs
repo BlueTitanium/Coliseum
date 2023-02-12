@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.UI;
 
 public class ArenaUIManager : MonoBehaviour
 {
@@ -10,7 +11,11 @@ public class ArenaUIManager : MonoBehaviour
     public RectTransform upgradeSlot;
     private List<RectTransform> upgradeSlotChildren = new List<RectTransform>{};
     [SerializeField] private List<TextMeshProUGUI> threeText = new List<TextMeshProUGUI>{};
-    
+    string[] textToShows = {"hp up", "dash spd up", "atk spd up", "dash cd down", "atk dmg up"};
+    [SerializeField] private List<Image> threeIcon = new List<Image>{};
+    public List<Sprite> spriteToShow = new List<Sprite>{};
+
+
     public RectTransform timer;
     public RectTransform title;
     public CanvasGroup titleCanvasGroup;
@@ -36,9 +41,10 @@ public class ArenaUIManager : MonoBehaviour
         for(int i = 0; i < 3; i++){
             // get three rect transform
             upgradeSlotChildren.Add(upgradeSlot.GetChild(i).GetComponent<RectTransform>());
-            // get three text
-            threeText.Add(upgradeSlotChildren[i].GetChild(0).GetComponent<TextMeshProUGUI>());
             // get three image
+            threeIcon.Add(upgradeSlotChildren[i].GetChild(0).GetComponent<Image>());
+            // get three text
+            threeText.Add(upgradeSlotChildren[i].GetChild(1).GetComponent<TextMeshProUGUI>());
         }
 
     }
@@ -60,9 +66,13 @@ public class ArenaUIManager : MonoBehaviour
     }
 
     public void updateUpgradeInfo(){
-        string[] textToShows = {"hp up", "dmg up", "atk cd down", "dash spd up", "atk spd up"};
         for(int i = 0; i < 3; i++){
             threeText[i].text = textToShows[ArenaManager.Instance.curUpgrades[i]];
+
+            threeIcon[i].sprite = spriteToShow[ArenaManager.Instance.curUpgrades[i]];
+            threeIcon[i].preserveAspect = true;
+            threeIcon[i].SetNativeSize();
+            threeIcon[i].rectTransform.sizeDelta = new Vector2(300, 300);
         }
     }
     public Tween showUpgradeSlots(){
