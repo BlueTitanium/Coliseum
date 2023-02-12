@@ -801,6 +801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1817afaa65e042408ba022a4f87ea86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 3123831178573756454, guid: 4b62221a04c3c144fbbc55597f76133e, type: 3}
   rb: {fileID: 1892532080}
   damage: 20
   time: 0.3
