@@ -110,6 +110,7 @@ public class RangedEnemy : MonoBehaviour
     {
         if (invuln <= 0)
         {
+            DamageNumberSpawner.Instance(transform.position, damage);
             curHP -= damage;
             spriteAnimator.SetTrigger("Damage");
         }

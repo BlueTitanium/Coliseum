@@ -29,9 +29,9 @@ public class SpikeTrap : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.CompareTag("Player")) {
-            PlayerController.p.TakeDamage(damage);
-            PlayerController.p.TakeKnockback(new Vector2(Random.Range(-1,1), Random.Range(-1,1)).normalized, time);
+        if (other.tag == "Player") {
+            other.GetComponent<PlayerController>().TakeDamage(damage);
+            other.GetComponent<PlayerController>().TakeKnockback(new Vector2(Random.Range(-1,1), Random.Range(-1,1)), time);
         }
     }
 
