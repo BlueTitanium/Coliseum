@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
     public float attackSpeed = 1;
     public float attackCD = .5f;
     public float attackCDLeft = 0f;
+    public float attackDamage;
+    public float attackKB;
 
     // Start is called before the first frame update
     void Start()

@@ -5,20 +5,17 @@ using UnityEngine;
 public class MeleeEnemy : MonoBehaviour
 {
     [SerializeField]
-    float knockback, timer, maxTimer;
+    float knockback, timer, maxTimer, damage, invuln;
 
-    public GameObject player;
+    GameObject player;
     public float speed;
     public Rigidbody2D enemyRb;
     public Collider2D enemyCol;
     Vector2 direction;
 
-    // The following vars are for testing purposes only
-    [SerializeField]
-    int kb;
-    [SerializeField]
-    float cooldown = 0f;
-    // The above are to be removed
+    void Start() {
+        player = GameObject.FindWithTag("Player");
+    }
 
     // Update is called once per frame
     void Update()
@@ -32,31 +29,25 @@ public class MeleeEnemy : MonoBehaviour
             enemyCol.isTrigger = false;
         }
 
-        // The following lines are for testing purposes only
-        if (Input.GetKey("space")) {
-            if (cooldown <= 0) {
-                Knockback(kb);
-                cooldown = 1f;
-            }
+        if (invuln > 0) {
+            invuln -= Time.deltaTime;
         }
-
-        if (cooldown > 0) {
-            cooldown -= Time.deltaTime;
-        }
-        // The above is to be removed
     }
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player" && timer <= 0) {
-            Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
-            rb.AddForce(direction * new Vector2(knockback, knockback));
-            Debug.Log(direction * new Vector2(knockback, knockback));
+            player.GetComponent<PlayerController>().TakeKnockback(direction, knockback);
+            player.GetComponent<PlayerController>().TakeDamage(damage);
             timer = maxTimer;
         }
     }
 
-    public void Knockback(int kb) {
-        enemyRb.AddForce(-1 * direction * new Vector2(kb, kb));
-        timer += 1f;
+    public void Knockback(float kb, float iframes) {
+        if (invuln <= 0) {
+            enemyRb.AddForce(-1 * direction * new Vector2(kb, kb));
+            Debug.Log("test");
+            timer += 1f;
+            invuln = iframes;
+        }
     }
 }
