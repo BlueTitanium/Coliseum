@@ -14,6 +14,10 @@ public class Projectile : MonoBehaviour
     void Start() {
         print("spawned");
         player = GameObject.FindWithTag("Player");
+        if (ArenaManager.Instance != null)
+        {
+            damage *= ArenaManager.Instance.enemyDamageMultiplier;
+        }
         Destroy(gameObject, lifetime);
     }
 

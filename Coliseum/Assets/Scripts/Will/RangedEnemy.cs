@@ -29,6 +29,10 @@ public class RangedEnemy : MonoBehaviour
     public bool disabled = false;
     void Start() {
         player = FindObjectOfType<PlayerController>().gameObject;
+        if(ArenaManager.Instance != null)
+        {
+            maxHP *= ArenaManager.Instance.enemyHealthMultiplier;
+        }
         curHP = maxHP;
     }
 

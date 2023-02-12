@@ -96,6 +96,7 @@ public class ArenaManager : MonoBehaviour
                 attackSpeedMultiplier += 0.2f;
                 break;
         }
+        PlayerController.p.SetStats();
     }
 
 

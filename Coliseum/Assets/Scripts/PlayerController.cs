@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public Transform[] rotatePoints;
 
     public float maxHP = 5f;
+    float originalMaxHP;
     float curHP = 5f;
     public float invincibilityTime = .3f;
     float canTakeDamage = 0f;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public Image playerStaminaBar;
 
     public float speed = 5f;
+    float originalSpeed;
     public float dashTime = .3f;
     public float dashLeft = 0f;
     public float dashCDTime = .5f;
@@ -39,9 +41,12 @@ public class PlayerController : MonoBehaviour
     public bool attacking = false;
     public Animator attackAnim;
     public float attackSpeed = 1;
+    float originalAttackSpeed;
     public float attackCD = .5f;
+    float originalCD;
     public float attackCDLeft = 0f;
     public float attackDamage;
+    float originalDamage;
     public float attackKB;
 
     public bool disabled = false;
@@ -55,6 +60,27 @@ public class PlayerController : MonoBehaviour
         playerHPBar.fillAmount = curHP / maxHP;
         curHPText.text = "" + curHP;
         maxHPText.text = "" + maxHP;
+
+        originalMaxHP = maxHP;
+        originalSpeed = speed;
+        originalAttackSpeed = attackSpeed;
+        originalCD = attackCD;
+        originalDamage = attackDamage;
+    }
+
+    public void SetStats()
+    {
+        ArenaManager a = ArenaManager.Instance;
+        float increment = originalMaxHP * a.healthMultiplier - maxHP;
+        IncreaseMaxHealth(increment);
+        speed = originalSpeed * a.dashSpeedMultiplier;
+        attackSpeed = originalAttackSpeed * a.attackSpeedMultiplier;
+        attackCD = originalCD * a.attackCDMultiplier;
+        if(attackCD < 0)
+        {
+            attackCD = 0;
+        }
+        attackDamage = originalDamage * a.damageMultiplier;
     }
 
     // Update is called once per frame
