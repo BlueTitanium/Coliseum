@@ -9,6 +9,7 @@ TagManager:
   - RangedEnemy
   - Ground
   - Wall
+  - Projectile
   layers:
   - Default
   - TransparentFX
