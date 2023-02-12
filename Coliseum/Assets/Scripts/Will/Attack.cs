@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    GameObject player;
+    PlayerController player;
     float damage, knockback;
     [SerializeField]
     float iframes;
 
     void Start() {
-        player = GameObject.FindWithTag("Player");
-        damage = player.GetComponent<PlayerController>().attackDamage;
-        knockback = player.GetComponent<PlayerController>().attackKB;
+        player = FindObjectOfType<PlayerController>();
+        damage = player.attackDamage;
+        knockback = player.attackKB;
     }
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "MeleeEnemy") {
+            print("Hit!");
+            other.GetComponent<MeleeEnemy>().TakeDamage(damage);
             other.GetComponent<MeleeEnemy>().Knockback(knockback, iframes);
+            
         }
         if (other.tag == "RangedEnemy") {
+            other.GetComponent<RangedEnemy>().TakeDamage(damage);
             other.GetComponent<RangedEnemy>().Knockback(knockback, iframes);
         }
     }

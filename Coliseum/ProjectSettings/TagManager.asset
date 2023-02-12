@@ -7,6 +7,8 @@ TagManager:
   - PlayerAttack
   - MeleeEnemy
   - RangedEnemy
+  - Ground
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -52,6 +54,9 @@ TagManager:
     locked: 0
   - name: PlayerTrail
     uniqueID: 3456437853
+    locked: 0
+  - name: Enemy
+    uniqueID: 1377917997
     locked: 0
   - name: Player
     uniqueID: 1882584411
