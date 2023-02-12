@@ -8,6 +8,9 @@ public class ArenaUIManager : MonoBehaviour
 {
     public static ArenaUIManager Instance;
     public RectTransform upgradeSlot;
+    private List<RectTransform> upgradeSlotChildren = new List<RectTransform>{};
+    [SerializeField] private List<TextMeshProUGUI> threeText = new List<TextMeshProUGUI>{};
+    
     public RectTransform timer;
     public RectTransform title;
     public CanvasGroup titleCanvasGroup;
@@ -30,8 +33,14 @@ public class ArenaUIManager : MonoBehaviour
 
     private void Start() {
         isTimerOn = false;
-        // titleCanvasGroup = title.GetComponent<CanvasGroup>();
-        // titleText = title.GetComponent<TextMeshProUGUI>();
+        for(int i = 0; i < 3; i++){
+            // get three rect transform
+            upgradeSlotChildren.Add(upgradeSlot.GetChild(i).GetComponent<RectTransform>());
+            // get three text
+            threeText.Add(upgradeSlotChildren[i].GetChild(0).GetComponent<TextMeshProUGUI>());
+            // get three image
+        }
+
     }
     private void Update() {
 
@@ -42,7 +51,7 @@ public class ArenaUIManager : MonoBehaviour
         // .SetId("showRoundTitle")
         // .Append(
         List<string> titles = new List<string>{"Death Fight", "Survival", "The Boss"};
-        titleText.text = titles[ArenaManager.Instance.phase];
+        titleText.text = titles[(int)ArenaManager.Instance.phase];
         titleCanvasGroup
         .DOFade(1, 1f)
         .SetEase(Ease.InQuad)
@@ -50,7 +59,12 @@ public class ArenaUIManager : MonoBehaviour
         // );
     }
 
-
+    public void updateUpgradeInfo(){
+        string[] textToShows = {"hp up", "dmg up", "atk cd down", "dash spd up", "atk spd up"};
+        for(int i = 0; i < 3; i++){
+            threeText[i].text = textToShows[ArenaManager.Instance.curUpgrades[i]];
+        }
+    }
     public Tween showUpgradeSlots(){
         Sequence sq = DOTween.Sequence();
         return sq
@@ -71,11 +85,13 @@ public class ArenaUIManager : MonoBehaviour
     }
 
 
-    public void hideUpgradeSlots(){
+    public void hideUpgradeSlots(int i){
         Sequence sq = DOTween.Sequence();
         sq
         .SetId("hideUpgradeSlots")
         .OnStart(()=>{
+            //upgrade the stats
+            ArenaManager.Instance.adjustSingleStats((upgradeType)ArenaManager.Instance.curUpgrades[i]);
             upgradeSlot.GetComponent<CanvasGroup>().interactable = false;
         })
         .Append(
@@ -86,7 +102,7 @@ public class ArenaUIManager : MonoBehaviour
         .AppendInterval(1f)
         .OnComplete(()=>{
             // change phase
-            ArenaManager.Instance.phase = -1;
+            ArenaManager.Instance.phase = phaseType.invalid;
         });
     }
 
@@ -99,7 +115,8 @@ public class ArenaUIManager : MonoBehaviour
         })
         .Append(
             timer
-            .DOAnchorPosY(Screen.height / 2 - timer.sizeDelta.y, 1f)
+            .DOAnchorPosY(430, 1f)
+            // .DOAnchorPosY(Screen.height / 2 - timer.sizeDelta.y, 1f)
             .SetEase(Ease.OutBack)
         )
         .AppendInterval(0.5f)
@@ -117,7 +134,10 @@ public class ArenaUIManager : MonoBehaviour
             timer
             .DOAnchorPosY(Screen.height / 2 + timer.sizeDelta.y, 1f)
             .SetEase(Ease.InBack)
-        );
+        )
+        .OnComplete(()=>{
+            timer.GetComponent<TextMeshProUGUI>().color = Color.white;
+        });
     }
 
     public void resetUI(){

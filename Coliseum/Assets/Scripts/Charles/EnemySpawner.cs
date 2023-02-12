@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
         screenOrigo = Camera.main.ScreenToWorldPoint(Vector2.zero);
         origScreenBounds = screenBounds;
         origScreenOrigo = screenOrigo;        
-        Debug.Log(Camera.main.pixelHeight);
+        // Debug.Log(Camera.main.pixelHeight);
     }
 
     private void Update() {
@@ -46,7 +46,6 @@ public class EnemySpawner : MonoBehaviour
         int waveEnemyNum = Random.Range(2, 5);
         List<Transform> enemies = new List<Transform>{};
 
-        // camera
 
         // instantiate object
         for(int i = 0; i < enemyNum; i++){
@@ -62,7 +61,6 @@ public class EnemySpawner : MonoBehaviour
 
         // DOJump wave by wave
         Vector2 landPos;
-        Vector2 appearPos;
         int enemyIndex = 0;
         foreach(Transform i in enemies){
             landPos = i.position;   
@@ -100,6 +98,7 @@ public class EnemySpawner : MonoBehaviour
                     .SetLoops(2, LoopType.Yoyo)
                     .OnComplete(()=>{
                         // activte attacking && player control
+                        // TODO
                     });
 
                 })
@@ -107,66 +106,7 @@ public class EnemySpawner : MonoBehaviour
             .SetDelay(enemyIndex * 3f);
 
             enemyIndex++;
-
         }
-
-
-
-
-
-
-        // for(int i = 0; i < enemyNum; i+= waveEnemyNum){
-        //     sq
-        //     .AppendInterval(0.5f);
-        //     for(int j = 0; j < waveEnemyNum && enemyIndex < enemyNum; j++, enemyIndex++){
-        //         int eIndex = enemyIndex;
-        //         sq
-        //         .OnStart(()=>{
-        //             // adjust position based on camera;
-        //             screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-        //             screenOrigo = Camera.main.ScreenToWorldPoint(Vector2.zero);
-        //             landPos = enemies[eIndex].position * 0.3f;
-        //             appearPos = landPos + screenOrigo;
-        //             // activate enemy
-        //             enemies[eIndex].position = appearPos;
-        //             enemies[eIndex].gameObject.SetActive(true);
-        //         })
-        //         .Join(
-        //             enemies[eIndex]
-        //             .DOJump(
-        //                 Vector3.zero,
-        //                 jumpPower: 10f,
-        //                 numJumps: 1,
-        //                 duration: 0.6f
-        //             )
-        //             .OnComplete(()=>{
-        //                 enemies[eIndex]
-        //                 .DOScaleY(
-        //                     0.7f,
-        //                     0.2f
-        //                 )
-        //                 .SetLoops(2, LoopType.Yoyo);
-
-        //                 enemies[eIndex]
-        //                 .DOLocalMoveY(
-        //                     -0.2f,
-        //                     0.2f
-        //                 )
-        //                 .SetRelative()
-        //                 .SetLoops(2, LoopType.Yoyo)
-        //                 .OnComplete(()=>{
-        //                     // activte attacking && player control
-        //                 });
-
-        //             })
-                    
-        //         );
-                
-        //     }
-
-        //     sq
-        //     .AppendInterval(8f);
-        // }
     }
 
     public void spawnBoss(){

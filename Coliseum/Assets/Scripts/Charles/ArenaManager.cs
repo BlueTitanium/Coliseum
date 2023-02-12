@@ -2,6 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum phaseType{
+    normal,
+    survival,
+    boss,
+    upgrade,
+    invalid
+}
+public enum upgradeType{
+    hpUp,
+    DMGUp,
+    atkCDDown,
+    dashSpdUp,
+    atkSpdUp
+    
+}
+
+
 public class ArenaManager : MonoBehaviour
 {
 
@@ -9,13 +26,20 @@ public class ArenaManager : MonoBehaviour
 
     // statics
     public int round;
-    public int phase;   // 0: normal battle, 1: survival, 2: boss fight  3: after battle(upgrade/lose)
+    public phaseType phase;   // 0: normal battle, 1: survival, 2: boss fight  3: after battle(upgrade/lose)
+
     public int loopPhase; // 0: first battle, 1: second battle, 2: survival, 3: boss
+
+    // upgrade
+
+    public List<int> curUpgrades = new List<int>{-1, -1, -1};
+    // stats
     public float damageMultiplier = 1;
     public float healthMultiplier = 1;
-    public float speedMultiplier = 1;
-    public float dashCDmultiplier = 1;
-    public float invincibilityTimeMultiplier = 1;
+    public float dashSpeedMultiplier = 1;
+    public float attackCDMultiplier = 1;
+    public float attackSpeedMultiplier = 1;
+
     public float enemyDamageMultiplier = 1;
     public float enemyHealthMultiplier = 1;
 
@@ -46,26 +70,31 @@ public class ArenaManager : MonoBehaviour
         StartCoroutine(phaseLoop());
     }
 
-    public void adjustStats(){
+    public void adjustStats(List<int> c){
 
     }
-    public void adjustSingleStats(string ab){
-        switch(ab){
-            case "damage":
-            //
-            break;
-            case "health":
-            //
-            break;
-            case "speed":
-            //
-            break;
-            case "dash":
-            //
-            break;
-            case "invincibility":
-            //
-            break;
+    public void adjustSingleStats(upgradeType i){
+        switch(i){
+            case upgradeType.DMGUp:
+                Debug.Log("dmgup");
+                damageMultiplier += 0.2f;
+                break;
+            case upgradeType.hpUp:
+                Debug.Log("hp up");
+                healthMultiplier += 0.2f;
+                break;
+            case upgradeType.atkCDDown:
+                Debug.Log("atk cd down");
+                attackCDMultiplier -= 0.1f;
+                break;
+            case upgradeType.dashSpdUp:
+                Debug.Log("dash spd up");
+                dashSpeedMultiplier += 0.2f;
+                break;
+            case upgradeType.atkSpdUp:
+                Debug.Log("atk spd up");
+                attackSpeedMultiplier += 0.2f;
+                break;
         }
     }
 
@@ -74,19 +103,19 @@ public class ArenaManager : MonoBehaviour
         ArenaUIManager.Instance.resetUI();
         List<int> phaseIndex = new List<int>{0, 0, 1, 2};
         while(true){
-            yield return new WaitUntil(()=> (phase != 3));
+            yield return new WaitUntil(()=> (phase != phaseType.upgrade));
 
             // normal battle/ survival/ boss
-            phase = phaseIndex[loopPhase];
+            phase = (phaseType)phaseIndex[loopPhase];
             Debug.Log($"phase type: {phase}");
-            switchPhase(phase);
+            switchPhase((int)phase);
             ArenaUIManager.Instance.showRoundTitle();
             
 
-            yield return new WaitUntil(()=> Input.GetKeyDown(KeyCode.K) || phase == 3);
-            phase = 3;
+            yield return new WaitUntil(()=> Input.GetKeyDown(KeyCode.K) || phase == phaseType.upgrade);
+            phase = phaseType.upgrade;
             // upgrade
-            yield return new WaitUntil(()=> (phase == 3));
+            yield return new WaitUntil(()=> (phase == phaseType.upgrade));
             switchPhase(3);
 
             // increment round
@@ -110,9 +139,25 @@ public class ArenaManager : MonoBehaviour
             break;
             case 3:
             // upgrade
+            rollUpgrade();
+            ArenaUIManager.Instance.updateUpgradeInfo();
             ArenaUIManager.Instance.showUpgradeSlots();
             break;
         }
+    }
+
+
+    public void rollUpgrade(){
+        curUpgrades.Clear();
+        int count = 0;
+        while(count < 3){
+            int temp = Random.Range(0, 5);
+            if(!curUpgrades.Contains(temp)){
+                curUpgrades.Add(temp);
+                count++;
+            }
+        }
+        Debug.Log(curUpgrades);
     }
 }
 
