@@ -28,8 +28,8 @@ public class Projectile : MonoBehaviour
         if (other.gameObject.CompareTag("Player")) {
             if(PlayerController.p.dashLeft <= 0)
             {
-                player.GetComponent<PlayerController>().TakeKnockback(direction, knockback);
-                player.GetComponent<PlayerController>().TakeDamage(damage);
+                PlayerController.p.TakeKnockback(direction, knockback);
+                PlayerController.p.TakeDamage(damage);
                 Instantiate(explosion, transform.position, explosion.transform.rotation);
                 print("player");
                 Destroy(gameObject);
