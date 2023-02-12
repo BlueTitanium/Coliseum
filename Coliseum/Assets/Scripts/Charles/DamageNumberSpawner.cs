@@ -24,10 +24,10 @@ public class DamageNumberSpawner : MonoBehaviour
     }
 
     private void Update() {
-        if(Input.GetMouseButtonDown(0)){
+        /*if(Input.GetMouseButtonDown(0)){
             Vector3 a = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             spawnDamageNumberOnce(a, 99);
-        }
+        }*/
     }
 
     public void spawnDamageNumberOnce(Vector3 pos, int dmg){

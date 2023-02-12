@@ -117,7 +117,7 @@ public class MeleeEnemy : MonoBehaviour
         if(invuln <= 0)
         {
             curHP -= damage;
-            damageNumberSpawner.Instance(transform.position, damage);
+            DamageNumberSpawner.Instance.spawnDamageNumberOnce(transform.position, (int)damage);
             spriteAnimator.SetTrigger("Damage");
         }
         if(curHP < 0)

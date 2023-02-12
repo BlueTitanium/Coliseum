@@ -228,7 +228,7 @@ public class PlayerController : MonoBehaviour
     {
         if (curHP > 0 && dashLeft <= 0 && canTakeDamage <= 0)
         {
-            DamageNumberSpawner.Instance(transform.position, damage);
+            DamageNumberSpawner.Instance.spawnDamageNumberOnce(transform.position, (int) amount);
             curHP -= amount;
             if(curHP < 0)
             {
