@@ -140,14 +140,17 @@ public class EnemySpawner : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
         while(ArenaUIManager.Instance.isTimerOn){
-
+            Vector2 pos;
             a = fieldBounds.y * Mathf.Sqrt(Random.Range(0f, 1f));
             b = fieldBounds.y * Mathf.Sqrt(Random.Range(0f, 1f));
             theta = Random.Range(0f, 1f) * 2 * Mathf.PI;
             x = a * Mathf.Cos(theta);
             y = b * Mathf.Sin(theta);
-
-            StartCoroutine(generateSingleBarrel(new Vector2(x, y)));
+            pos = new Vector2(x, y);
+            if(Random.Range(0, 5) == 0){
+                pos = PlayerController.p.transform.position;
+            }
+            StartCoroutine(generateSingleBarrel(pos));
             yield return new WaitForSeconds(0.5f);
           
         }
