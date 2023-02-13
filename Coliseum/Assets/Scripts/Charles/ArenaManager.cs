@@ -70,22 +70,11 @@ public class ArenaManager : MonoBehaviour
         StartCoroutine(phaseLoop());
     }
 
-    public void adjustStats(List<int> c){
-
-    }
     public void adjustSingleStats(upgradeType i){
         switch(i){
-            case upgradeType.DMGUp:
-                Debug.Log("dmgup");
-                damageMultiplier += 0.2f;
-                break;
             case upgradeType.hpUp:
                 Debug.Log("hp up");
                 healthMultiplier += 0.2f;
-                break;
-            case upgradeType.atkCDDown:
-                Debug.Log("atk cd down");
-                attackCDMultiplier -= 0.1f;
                 break;
             case upgradeType.dashSpdUp:
                 Debug.Log("dash spd up");
@@ -95,6 +84,15 @@ public class ArenaManager : MonoBehaviour
                 Debug.Log("atk spd up");
                 attackSpeedMultiplier += 0.2f;
                 break;
+            case upgradeType.atkCDDown:
+                Debug.Log("atk cd down");
+                attackCDMultiplier -= 0.1f;
+                break;
+            case upgradeType.DMGUp:
+                Debug.Log("dmgup");
+                damageMultiplier += 0.3f;
+                Debug.Log(damageMultiplier);
+                break;
         }
         PlayerController.p.SetStats();
     }
@@ -102,7 +100,7 @@ public class ArenaManager : MonoBehaviour
 
     IEnumerator phaseLoop(){
         ArenaUIManager.Instance.resetUI();
-        List<int> phaseIndex = new List<int>{0, 0, 1, 2};
+        List<int> phaseIndex = new List<int>{0, 0, 1};
         while(true){
             yield return new WaitUntil(()=> (phase != phaseType.upgrade));
 
@@ -121,7 +119,7 @@ public class ArenaManager : MonoBehaviour
 
             // increment round
             round++;
-            loopPhase = round % 4;
+            loopPhase = round % (phaseIndex.Count);
         }
     }
 
@@ -129,11 +127,12 @@ public class ArenaManager : MonoBehaviour
         switch(p){
             case 0:
             // normal battle
-            _es.spawnEnemies();
+            StartCoroutine(_es.spawnEnemies());
             break;
             case 1:
             // survival
             ArenaUIManager.Instance.showTimer();
+            StartCoroutine(_es.spawnObstacle());
             break;
             case 2:
             // boss

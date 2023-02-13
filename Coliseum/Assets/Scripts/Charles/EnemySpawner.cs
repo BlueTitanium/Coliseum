@@ -6,110 +6,240 @@ using DG.Tweening;
 public class EnemySpawner : MonoBehaviour
 {
     public List<Transform> enemyList;
-    // private Collider2D _col;
-    // [SerializeField] private float areaWidth;
-    // [SerializeField] private float areaHeight;
-    // [SerializeField] private float screenWidth;
-    // [SerializeField] private float screenHeight;
+    public List<Transform> obstacleList; // 0: spike 1: barrel
+    public Transform landMark;
     Vector3 screenBounds;
     Vector3 screenOrigo;
 
     Vector3 origScreenBounds;
     Vector3 origScreenOrigo;
 
-    
+    public Collider2D gridCol;
 
-    private void Awake() {
-        // _col = GetComponent<Collider2D>();
-        // areaWidth = _col.bounds.extents.x;
-        // areaHeight = _col.bounds.extents.y;
-        // screenWidth = Screen.width;
-        // screenHeight = Screen.height;
+    Vector2 fieldBounds;
+
+    // round enemy detail
+    int enemyNum;
+    int enemyCount;
+    int activeEnemyCount;
+
+
+
+    private void Awake()
+    {
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
         screenOrigo = Camera.main.ScreenToWorldPoint(Vector2.zero);
         origScreenBounds = screenBounds;
-        origScreenOrigo = screenOrigo;        
+        origScreenOrigo = screenOrigo;
+        fieldBounds = gridCol.bounds.extents;
         // Debug.Log(Camera.main.pixelHeight);
     }
 
-    private void Update() {
+    private void Update()
+    {
 
     }
 
-    public void spawnEnemies(){
+    public IEnumerator spawnEnemies()
+    {
         // initialize
+        int[] fib = { 1, 1, 2, 3, 5, 8, 13, 21, 34, 55 };
         int round = ArenaManager.Instance.round;
-        int bias = (Random.Range(0, 2) == 0)?
-            (0):
-            (round % 2);
-        int enemyNum = round + bias + 1;
-        int waveEnemyNum = Random.Range(2, 5);
-        List<Transform> enemies = new List<Transform>{};
+        // int bias = (Random.Range(0, 2) == 0)?
+        //     (0):
+        //     (round % 2);
+        enemyNum = fib[round - (round/3)];
+        enemyCount = 0;
+        activeEnemyCount = 0;
+        //int waveEnemyNum = Random.Range(2, 5);
+        List<Transform> enemies = new List<Transform> { };
 
+        StartCoroutine(traceDeaths());
+        while (enemyCount < enemyNum)
+        {
+            // wait until less or equal to 3 enemies
+            yield return new WaitUntil(() => activeEnemyCount < 3);
 
-        // instantiate object
-        for(int i = 0; i < enemyNum; i++){
+            // instantiate ONE enemy at certain angle
             float randomAngle = Random.Range(0f, 2f * Mathf.PI);
             Transform obj = Instantiate(
-                enemyList[Random.Range(0, enemyList.Count)],
-                new Vector2(origScreenBounds.x * Mathf.Cos(randomAngle) * 0.4f, origScreenBounds.y * Mathf.Sin(randomAngle) * 0.4f),
+                enemyList[(round < 2) ? 0 : Random.Range(0, enemyList.Count)],
+                new Vector2(origScreenBounds.x * Mathf.Cos(randomAngle) * 2, origScreenBounds.y * Mathf.Sin(randomAngle) * 2),
                 Quaternion.identity
             );
-            //obj.gameObject.SetActive(false);
-            enemies.Add(obj);
-        }
+            // increment
+            activeEnemyCount++;
+            enemyCount++;
+            Debug.Log($"active: {activeEnemyCount} total: {enemyCount}");
 
-        // DOJump wave by wave
-        Vector2 landPos;
-        int enemyIndex = 0;
-        foreach(Transform i in enemies){
-            landPos = i.position;   
-            Sequence sq = DOTween.Sequence();
-            sq
-            .OnStart(()=>{
-                screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-                screenOrigo = Camera.main.ScreenToWorldPoint(Vector2.zero);
-                i.position /= 0.4f;
-                i.position +=screenOrigo;
-                i.gameObject.SetActive(true);
-            })
-            .Append(
-                i
-                .DOJump(
-                    landPos,
-                    jumpPower: 10f,
-                    numJumps: 1,
-                    duration: 0.6f
-                )
-                .OnComplete(()=>{
-                    i
-                    .DOScaleY(
-                        0.7f,
-                        0.2f
-                    )
-                    .SetLoops(2, LoopType.Yoyo);
+            StartCoroutine(trackSingleDeath(obj.gameObject));
+            if (obj.GetComponent<MeleeEnemy>())
+            {
+                obj.GetComponent<MeleeEnemy>().disabled = true;
+            }
 
-                    i
-                    .DOLocalMoveY(
-                        -0.2f,
-                        0.2f
-                    )
-                    .SetRelative()
-                    .SetLoops(2, LoopType.Yoyo)
-                    .OnComplete(()=>{
-                        // activte attacking && player control
-                        // TODO
-                    });
-
-                })
+            //
+            Vector2 landPos = obj.position * 0.2f;
+            obj
+            .DOJump(
+                landPos,
+                jumpPower: 10f,
+                numJumps: 1,
+                duration: 0.6f
             )
-            .SetDelay(enemyIndex * 3f);
+            .OnComplete(() =>
+            {
+                obj
+                .DOScaleY(
+                    0.7f,
+                    0.2f
+                )
+                .SetLoops(2, LoopType.Yoyo);
 
-            enemyIndex++;
+                obj
+                .DOLocalMoveY(
+                    -0.2f,
+                    0.2f
+                )
+                .SetRelative()
+                .SetLoops(2, LoopType.Yoyo)
+                .OnComplete(() =>
+                {
+                    // activte attacking && player control
+                    // TODO
+                    if (obj.GetComponent<MeleeEnemy>())
+                    {
+                        obj.GetComponent<MeleeEnemy>().disabled = false;
+                    }
+                });
+            });
+            // increment
+            yield return new WaitForSeconds(3f);
+
+
         }
     }
 
-    public void spawnBoss(){
+
+    public IEnumerator spawnObstacle(){
+        float a;
+        float b; 
+        float theta;
+        float x; 
+        float y; 
+        // generate spike
+        for(int i = 0; i < ArenaManager.Instance.round; i++){
+            a = fieldBounds.y * Mathf.Sqrt(Random.Range(0f, 1f));
+            b = fieldBounds.y * Mathf.Sqrt(Random.Range(0f, 1f));
+            theta = Random.Range(0f, 1f) * 2 * Mathf.PI;
+            x = a * Mathf.Cos(theta);
+            y = b * Mathf.Sin(theta);
+
+            StartCoroutine(generateSingleSpike(new Vector2(x, y)));
+        }
+
+        yield return new WaitForSeconds(2f);
+        while(ArenaUIManager.Instance.isTimerOn){
+
+            a = fieldBounds.y * Mathf.Sqrt(Random.Range(0f, 1f));
+            b = fieldBounds.y * Mathf.Sqrt(Random.Range(0f, 1f));
+            theta = Random.Range(0f, 1f) * 2 * Mathf.PI;
+            x = a * Mathf.Cos(theta);
+            y = b * Mathf.Sin(theta);
+
+            StartCoroutine(generateSingleBarrel(new Vector2(x, y)));
+            yield return new WaitForSeconds(0.5f);
+          
+        }
+
 
     }
+
+    IEnumerator generateSingleSpike(Vector3 pos){
+        Transform obj = Instantiate(obstacleList[0], pos, Quaternion.identity);
+        SpriteRenderer _sr = obj.GetChild(0).GetComponent<SpriteRenderer>();
+        _sr.color = new Color(1, 1, 1, 0);
+
+
+        _sr
+        .DOFade(
+            1f,
+            2f
+        );
+        obj
+        .DOLocalRotate(
+            new Vector3(0, 0, 360),
+            2f,
+            RotateMode.FastBeyond360
+        )
+        .SetRelative();
+
+        yield return new WaitForSeconds(30f);
+        _sr
+        .DOFade(
+            0f,
+            0.3f
+        );
+        obj.DOLocalMoveY(
+            -0.3f,
+            0.3f
+        )
+        .SetEase(
+            Ease.InBack
+        )
+        .OnComplete(()=>{
+            Destroy(obj.gameObject);
+        });
+        
+
+    }
+
+    IEnumerator generateSingleBarrel(Vector3 pos){
+        Transform obj = Instantiate(obstacleList[1], pos + screenBounds.y * Vector3.up * 2f, Quaternion.identity);
+        var mark = Instantiate(landMark, pos, Quaternion.identity);
+        var _sr = obj.GetComponent<SpriteRenderer>();
+  
+
+        obj
+        .DOMove(
+            pos,
+            2f
+        )
+        .SetEase(
+            Ease.InSine
+        )
+        .OnKill(()=>{   // hit player
+            // add effect
+        })
+        .OnComplete(()=>{ // hit ground
+            //
+            obj.GetComponent<Collider2D>().enabled = false;
+            Destroy(mark.gameObject);
+            _sr.DOFade(
+                0f,
+                0.3f
+            )
+            .OnComplete(()=>{
+                
+                Destroy(obj.gameObject);
+            });
+        });
+        yield return new WaitForSeconds(1f);
+
+
+    }
+
+
+    IEnumerator trackSingleDeath(GameObject obj)
+    {
+        yield return new WaitUntil(() => (obj == null));
+        activeEnemyCount--;
+    }
+
+    IEnumerator traceDeaths()
+    {
+        yield return new WaitUntil(() => (enemyCount == enemyNum && activeEnemyCount == 0));
+        ArenaManager.Instance.phase = phaseType.upgrade;
+    }
+
 }

@@ -3297,7 +3297,7 @@ GameObject:
   - component: {fileID: 776313838}
   - component: {fileID: 776313840}
   - component: {fileID: 776313839}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84129,7 +84129,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7.06
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

@@ -11,7 +11,7 @@ public class ArenaUIManager : MonoBehaviour
     public RectTransform upgradeSlot;
     private List<RectTransform> upgradeSlotChildren = new List<RectTransform>{};
     [SerializeField] private List<TextMeshProUGUI> threeText = new List<TextMeshProUGUI>{};
-    string[] textToShows = {"hp up", "dash spd up", "atk spd up", "dash cd down", "atk dmg up"};
+    string[] textToShows = {"hp up", "dash spd up", "atk spd up", "atk cd down", "atk dmg up"};
     [SerializeField] private List<Image> threeIcon = new List<Image>{};
     public List<Sprite> spriteToShow = new List<Sprite>{};
 
@@ -81,7 +81,7 @@ public class ArenaUIManager : MonoBehaviour
         .SetId("showUpgradeSlots")
         .OnStart(()=>{
             upgradeSlot.GetComponent<CanvasGroup>().interactable = false;
-            upgradeSlot.localPosition = new Vector3(0, Screen.height / 2 + upgradeSlot.sizeDelta.y, 0);
+            upgradeSlot.localPosition = new Vector3(0, Screen.height + upgradeSlot.sizeDelta.y, 0);
         })
         .Append(
             upgradeSlot
@@ -106,7 +106,7 @@ public class ArenaUIManager : MonoBehaviour
         })
         .Append(
             upgradeSlot
-            .DOAnchorPosY(Screen.height / 2 + upgradeSlot.sizeDelta.y, 1f)
+            .DOAnchorPosY(Screen.height + upgradeSlot.sizeDelta.y, 1f)
             .SetEase(Ease.InBack)
         )
         .AppendInterval(1f)
@@ -121,7 +121,7 @@ public class ArenaUIManager : MonoBehaviour
         return sq
         .SetId("showTimer")
         .OnStart(()=>{
-            timer.localPosition = new Vector3(0, Screen.height / 2 + timer.sizeDelta.y, 0);
+            timer.localPosition = new Vector3(0, Screen.height + timer.sizeDelta.y, 0);
         })
         .Append(
             timer
@@ -142,7 +142,7 @@ public class ArenaUIManager : MonoBehaviour
         .SetId("hideTimer")
         .Append(
             timer
-            .DOAnchorPosY(Screen.height / 2 + timer.sizeDelta.y, 1f)
+            .DOAnchorPosY(Screen.height + timer.sizeDelta.y, 1f)
             .SetEase(Ease.InBack)
         )
         .OnComplete(()=>{
@@ -151,8 +151,8 @@ public class ArenaUIManager : MonoBehaviour
     }
 
     public void resetUI(){
-        timer.localPosition = new Vector3(0, Screen.height / 2 + timer.sizeDelta.y, 0);
-        upgradeSlot.localPosition = new Vector3(0, Screen.height / 2 + upgradeSlot.sizeDelta.y, 0);
+        timer.localPosition = new Vector3(0, Screen.height + timer.sizeDelta.y, 0);
+        upgradeSlot.localPosition = new Vector3(0, Screen.height + upgradeSlot.sizeDelta.y, 0);
 
         // battle title
         title.localPosition = Vector3.zero;
