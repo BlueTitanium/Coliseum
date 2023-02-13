@@ -55,6 +55,7 @@ public class ArenaManager : MonoBehaviour
     private PlayerController _pc;
     private void Awake()
     {
+        /*
         // start of new code
         if (Instance != null)
         {
@@ -62,9 +63,9 @@ public class ArenaManager : MonoBehaviour
             return;
         }
         // end of new code
-
+        */
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
     private void Start() {
         _pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();

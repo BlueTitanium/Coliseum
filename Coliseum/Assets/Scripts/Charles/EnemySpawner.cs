@@ -213,6 +213,7 @@ public class EnemySpawner : MonoBehaviour
         )
         .OnKill(()=>{   // hit player
             // add effect
+            Destroy(mark.gameObject);
         })
         .OnComplete(()=>{ // hit ground
             //

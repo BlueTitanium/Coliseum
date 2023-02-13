@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     public float attackKB;
 
     public bool disabled = false;
-
+    Vector2 tempVelocity;
     // Start is called before the first frame update
     void Start()
     {
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         {
             canTakeDamage -= Time.deltaTime;
         }
-        if (!disabled)
+        if (!disabled && !GameManager.gm.isPaused)
         {
             if (!attacking)
             {
@@ -149,12 +149,21 @@ public class PlayerController : MonoBehaviour
                 attackCDLeft -= Time.deltaTime;
             }
         }
-        else
+        else if (disabled)
         {
             rb2d.velocity = Vector2.zero;
         }
-        playerBodyAnimator.SetBool("Moving", !Mathf.Approximately(rb2d.velocity.magnitude, 0));
-        if(horizontal < 0)
+        if (!GameManager.gm.isPaused)
+        {
+            playerBodyAnimator.SetBool("Moving", !Mathf.Approximately(rb2d.velocity.magnitude, 0));
+        }
+        else
+        {
+            playerBodyAnimator.SetBool("Moving", false);
+        }
+            
+
+        if (horizontal < 0)
         {
             torso.transform.localScale = new Vector3(-1 * Mathf.Abs(torso.transform.localScale.x), torso.transform.localScale.y, torso.transform.localScale.z);
         } else if (horizontal > 0)
@@ -163,6 +172,17 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+
+    public void PausePlayer()
+    {
+        tempVelocity = rb2d.velocity;
+        rb2d.velocity = Vector2.zero;
+    }
+    public void UnpausePlayer()
+    {
+        rb2d.velocity = tempVelocity;
+    }
+
     IEnumerator handleDashTrails(float time)
     {
         foreach(DashTrail d in dashTrails)
@@ -207,8 +227,8 @@ public class PlayerController : MonoBehaviour
         }
         curHP = maxHP;
         playerHPBar.fillAmount = curHP / maxHP;
-        curHPText.text = "" + curHP;
-        maxHPText.text = "" + maxHP;
+        curHPText.text = "" + Mathf.CeilToInt(curHP);
+        maxHPText.text = "" + Mathf.CeilToInt(maxHP);
     }
 
     public void TakeKnockback(Vector2 dir, float time)
@@ -249,8 +269,11 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    
     public void Die()
     {
         //do something
+        disabled = true;
+        GameManager.gm.LoseScreen();
     }
 }
