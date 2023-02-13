@@ -58,8 +58,8 @@ public class PlayerController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         curHP = maxHP;
         playerHPBar.fillAmount = curHP / maxHP;
-        curHPText.text = "" + curHP;
-        maxHPText.text = "" + maxHP;
+        curHPText.text = "" + Mathf.RoundToInt(curHP);
+        maxHPText.text = "" + Mathf.RoundToInt(maxHP);
 
         originalMaxHP = maxHP;
         originalSpeed = speed;
@@ -227,8 +227,8 @@ public class PlayerController : MonoBehaviour
         }
         curHP = maxHP;
         playerHPBar.fillAmount = curHP / maxHP;
-        curHPText.text = "" + Mathf.CeilToInt(curHP);
-        maxHPText.text = "" + Mathf.CeilToInt(maxHP);
+        curHPText.text = "" + Mathf.RoundToInt(curHP);
+        maxHPText.text = "" + Mathf.RoundToInt(maxHP);
     }
 
     public void TakeKnockback(Vector2 dir, float time)
@@ -258,8 +258,8 @@ public class PlayerController : MonoBehaviour
             canTakeDamage = invincibilityTime;
             playerBodyAnimator.SetTrigger("Damage");
             playerHPBar.fillAmount = curHP / maxHP;
-            curHPText.text = "" + curHP;
-            maxHPText.text = "" + maxHP;
+            curHPText.text = "" + Mathf.RoundToInt(curHP);
+            maxHPText.text = "" + Mathf.RoundToInt(maxHP);
         } 
         
         if(curHP <= 0)
