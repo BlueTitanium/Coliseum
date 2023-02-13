@@ -42,7 +42,7 @@ public class MeleeEnemy : MonoBehaviour
         {
             player = PlayerController.p.transform.gameObject;
         }
-        if (!PlayerController.p.disabled && !disabled)
+        if (!PlayerController.p.disabled && !disabled && !GameManager.gm.isPaused)
         {
             distance = Vector2.Distance(transform.position, player.transform.position);
             direction = player.transform.position - transform.position;
@@ -94,7 +94,10 @@ public class MeleeEnemy : MonoBehaviour
             enemyRb.velocity = Vector2.zero;
         }
     }
-
+    private void OnDestroy()
+    {
+        GameManager.gm.killCount += 1;
+    }
     void OnTriggerEnter2D(Collider2D other) {
         
         //if (other.gameObject.CompareTag("Player") && timer <= 0) {
