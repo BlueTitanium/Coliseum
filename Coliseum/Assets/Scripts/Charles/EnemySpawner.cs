@@ -15,6 +15,7 @@ public class EnemySpawner : MonoBehaviour
     Vector3 origScreenOrigo;
 
     public Collider2D gridCol;
+    public Transform water;
 
     Vector2 fieldBounds;
 
@@ -29,8 +30,10 @@ public class EnemySpawner : MonoBehaviour
     {
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
         screenOrigo = Camera.main.ScreenToWorldPoint(Vector2.zero);
-        origScreenBounds = screenBounds;
-        origScreenOrigo = screenOrigo;
+        //origScreenBounds = screenBounds;
+        //origScreenOrigo = screenOrigo;
+        origScreenBounds = new Vector3(8, 14);
+        origScreenOrigo = Vector3.zero;
         fieldBounds = gridCol.bounds.extents;
         // Debug.Log(Camera.main.pixelHeight);
     }
@@ -62,6 +65,7 @@ public class EnemySpawner : MonoBehaviour
 
             // instantiate ONE enemy at certain angle
             float randomAngle = Random.Range(0f, 2f * Mathf.PI);
+            water.gameObject.layer = LayerMask.NameToLayer("Default");
             Transform obj = Instantiate(
                 enemyList[(round < 2) ? 0 : Random.Range(0, enemyList.Count)],
                 new Vector2(origScreenBounds.x * Mathf.Cos(randomAngle) * 2, origScreenBounds.y * Mathf.Sin(randomAngle) * 2),
@@ -89,6 +93,7 @@ public class EnemySpawner : MonoBehaviour
             )
             .OnComplete(() =>
             {
+                water.gameObject.layer = LayerMask.NameToLayer("Water");
                 obj
                 .DOScaleY(
                     0.7f,
