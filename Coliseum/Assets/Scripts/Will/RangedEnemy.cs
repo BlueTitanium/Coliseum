@@ -41,7 +41,7 @@ public class RangedEnemy : MonoBehaviour
     {
 
         
-        if (!PlayerController.p.disabled && !disabled)
+        if (!PlayerController.p.disabled && !disabled && !GameManager.gm.isPaused)
         {
             distance = Vector2.Distance(transform.position, player.transform.position);
             direction = player.transform.position - transform.position;
@@ -124,5 +124,9 @@ public class RangedEnemy : MonoBehaviour
     public void KillSelf()
     {
         Destroy(gameObject);
+    }
+    private void OnDestroy()
+    {
+        GameManager.gm.killCount += 1;
     }
 }
