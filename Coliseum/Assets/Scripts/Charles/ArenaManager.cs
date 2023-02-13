@@ -24,6 +24,9 @@ public class ArenaManager : MonoBehaviour
 
     public static ArenaManager Instance;
 
+    // game toggle
+    public bool isStarted = false;
+
     // statics
     public int round;
     public phaseType phase;   // 0: normal battle, 1: survival, 2: boss fight  3: after battle(upgrade/lose)
@@ -101,7 +104,7 @@ public class ArenaManager : MonoBehaviour
     IEnumerator phaseLoop(){
         ArenaUIManager.Instance.resetUI();
         List<int> phaseIndex = new List<int>{0, 0, 1};
-        while(true){
+        while(isStarted){
             yield return new WaitUntil(()=> (phase != phaseType.upgrade));
 
             // normal battle/ survival/ boss
@@ -120,6 +123,10 @@ public class ArenaManager : MonoBehaviour
             // increment round
             round++;
             loopPhase = round % (phaseIndex.Count);
+
+            // increment enemies stats
+            enemyDamageMultiplier += 0.2f;
+            enemyHealthMultiplier += 0.2f;
         }
     }
 
@@ -158,6 +165,25 @@ public class ArenaManager : MonoBehaviour
             }
         }
         Debug.Log(curUpgrades);
+    }
+
+
+    public void resetGame(){
+        round = 0;
+        phase = 0;
+        loopPhase = 0;
+        damageMultiplier = 1;
+        healthMultiplier = 1;
+        dashSpeedMultiplier = 1;
+        attackCDMultiplier = 1;
+        attackSpeedMultiplier = 1;
+        enemyDamageMultiplier = 1;
+        enemyHealthMultiplier = 1;
+    }
+
+    public void startGame(){
+        isStarted = true;
+        StartCoroutine(phaseLoop());
     }
 }
 
