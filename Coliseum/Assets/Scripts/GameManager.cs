@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
         {
             foreach (var a in rounds)
             {
-                a.text = ""+ArenaManager.Instance.round;
+                a.text = ""+(ArenaManager.Instance.round+1);
             }
         }
         foreach (var a in kills)
