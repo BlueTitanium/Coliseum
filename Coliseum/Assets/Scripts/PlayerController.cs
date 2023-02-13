@@ -227,8 +227,8 @@ public class PlayerController : MonoBehaviour
         }
         curHP = maxHP;
         playerHPBar.fillAmount = curHP / maxHP;
-        curHPText.text = "" + curHP;
-        maxHPText.text = "" + maxHP;
+        curHPText.text = "" + Mathf.CeilToInt(curHP);
+        maxHPText.text = "" + Mathf.CeilToInt(maxHP);
     }
 
     public void TakeKnockback(Vector2 dir, float time)
