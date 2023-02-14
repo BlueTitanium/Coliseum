@@ -137,7 +137,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2f);
-        while(ArenaUIManager.Instance.isTimerOn){
+        while(ArenaUIManager.Instance.isTimerOn && !GameManager.gm.lost){
             Vector2 pos;
             a = fieldBounds.y * Mathf.Sqrt(Random.Range(0f, 1f));
             b = fieldBounds.y * Mathf.Sqrt(Random.Range(0f, 1f));

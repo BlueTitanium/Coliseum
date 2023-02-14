@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         gm = this;
         isPaused = true;
         isStarted = false;
-
+        lost = false;
         masterVolume = Settings.MasterVolume;
         musicVolume = Settings.MusicVolume;
         sfxVolume = Settings.SFXVolume;
@@ -118,9 +118,13 @@ public class GameManager : MonoBehaviour
 
     public void LoseScreen()
     {
-        SetStatistics();
-        lost = true;
-        loseAnimation.Play();
+        if (lost == false)
+        {
+            SetStatistics();
+            lost = true;
+            loseAnimation.Play();
+        }
+        
     }
 
     public void RestartGame()

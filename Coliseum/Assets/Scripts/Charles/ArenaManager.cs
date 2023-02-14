@@ -189,6 +189,7 @@ public class ArenaManager : MonoBehaviour
 
 
     public void resetGame(){
+        /*
         Debug.Log("reset game");
         round = 0;
         phase = 0;
@@ -200,13 +201,14 @@ public class ArenaManager : MonoBehaviour
         attackSpeedMultiplier = 1;
         enemyDamageMultiplier = 1;
         enemyHealthMultiplier = 1;
+        */
     }
 
     public void startGame(){
         Debug.Log("start game");
         resetGame();
         ArenaUIManager.Instance.resetUI();
-        GameManager.gm.lost = false;
+        //GameManager.gm.lost = false;
         StartCoroutine(phaseLoop());
     }
 }
