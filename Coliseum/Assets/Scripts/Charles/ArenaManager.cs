@@ -25,7 +25,7 @@ public class ArenaManager : MonoBehaviour
     public static ArenaManager Instance;
 
     // game toggle
-    public bool isStarted = false;
+    [SerializeField] private bool isActive;
 
     // statics
     public int round;
@@ -69,9 +69,30 @@ public class ArenaManager : MonoBehaviour
     }
     private void Start() {
         _pc = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        phase = 0;
-        loopPhase = 0;
-        StartCoroutine(phaseLoop());
+        isActive = false;
+        // phase = 0;
+        // loopPhase = 0;
+        // StartCoroutine(phaseLoop());
+    }
+
+    private void Update() {
+        if(!isActive && GameManager.gm.isStarted && !GameManager.gm.isPaused){
+            Time.timeScale = 1f;
+            isActive = true;
+            startGame();
+        }
+
+        if(isActive && GameManager.gm.isPaused){
+            //Time.timeScale = 0f;
+            //isActive = false;
+        }
+
+        if(isActive && GameManager.gm.lost){
+            isActive = false;
+
+        }
+
+        
     }
 
     public void adjustSingleStats(upgradeType i){
@@ -103,9 +124,10 @@ public class ArenaManager : MonoBehaviour
 
 
     IEnumerator phaseLoop(){
-        ArenaUIManager.Instance.resetUI();
+        
         List<int> phaseIndex = new List<int>{0, 0, 1};
-        while(isStarted){
+        while(!GameManager.gm.lost && !GameManager.gm.isPaused){
+            Debug.Log($"round: {round}");
             yield return new WaitUntil(()=> (phase != phaseType.upgrade));
 
             // normal battle/ survival/ boss
@@ -114,9 +136,6 @@ public class ArenaManager : MonoBehaviour
             switchPhase((int)phase);
             ArenaUIManager.Instance.showRoundTitle();
             
-
-            yield return new WaitUntil(()=> Input.GetKeyDown(KeyCode.K) || phase == phaseType.upgrade);
-            phase = phaseType.upgrade;
             // upgrade
             yield return new WaitUntil(()=> (phase == phaseType.upgrade));
             switchPhase(3);
@@ -170,6 +189,7 @@ public class ArenaManager : MonoBehaviour
 
 
     public void resetGame(){
+        Debug.Log("reset game");
         round = 0;
         phase = 0;
         loopPhase = 0;
@@ -183,7 +203,10 @@ public class ArenaManager : MonoBehaviour
     }
 
     public void startGame(){
-        isStarted = true;
+        Debug.Log("start game");
+        resetGame();
+        ArenaUIManager.Instance.resetUI();
+        GameManager.gm.lost = false;
         StartCoroutine(phaseLoop());
     }
 }

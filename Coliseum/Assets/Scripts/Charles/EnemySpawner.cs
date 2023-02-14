@@ -8,13 +8,13 @@ public class EnemySpawner : MonoBehaviour
     public List<Transform> enemyList;
     public List<Transform> obstacleList; // 0: spike 1: barrel
     public Transform landMark;
-    Vector3 screenBounds;
-    Vector3 screenOrigo;
+
 
     Vector3 origScreenBounds;
     Vector3 origScreenOrigo;
 
     public Collider2D gridCol;
+    public Transform water;
 
     Vector2 fieldBounds;
 
@@ -27,10 +27,9 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
-        screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-        screenOrigo = Camera.main.ScreenToWorldPoint(Vector2.zero);
-        origScreenBounds = screenBounds;
-        origScreenOrigo = screenOrigo;
+
+        origScreenBounds = new Vector3(8, 14);
+        origScreenOrigo = Vector3.zero;
         fieldBounds = gridCol.bounds.extents;
         // Debug.Log(Camera.main.pixelHeight);
     }
@@ -45,9 +44,7 @@ public class EnemySpawner : MonoBehaviour
         // initialize
         int[] fib = { 1, 1, 2, 3, 5, 8, 13, 21, 34, 55 };
         int round = ArenaManager.Instance.round;
-        // int bias = (Random.Range(0, 2) == 0)?
-        //     (0):
-        //     (round % 2);
+
         enemyNum = fib[round - (round/3)];
         enemyCount = 0;
         activeEnemyCount = 0;
@@ -62,6 +59,7 @@ public class EnemySpawner : MonoBehaviour
 
             // instantiate ONE enemy at certain angle
             float randomAngle = Random.Range(0f, 2f * Mathf.PI);
+            water.gameObject.layer = LayerMask.NameToLayer("Default");
             Transform obj = Instantiate(
                 enemyList[(round < 2) ? 0 : Random.Range(0, enemyList.Count)],
                 new Vector2(origScreenBounds.x * Mathf.Cos(randomAngle) * 2, origScreenBounds.y * Mathf.Sin(randomAngle) * 2),
@@ -79,7 +77,7 @@ public class EnemySpawner : MonoBehaviour
             }
 
             //
-            Vector2 landPos = obj.position * 0.2f;
+            Vector2 landPos = obj.position * 0.16f + Vector3.up * 0.1f;
             obj
             .DOJump(
                 landPos,
@@ -89,6 +87,7 @@ public class EnemySpawner : MonoBehaviour
             )
             .OnComplete(() =>
             {
+                water.gameObject.layer = LayerMask.NameToLayer("Water");
                 obj
                 .DOScaleY(
                     0.7f,
@@ -151,7 +150,7 @@ public class EnemySpawner : MonoBehaviour
                 pos = PlayerController.p.transform.position;
             }
             StartCoroutine(generateSingleBarrel(pos));
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.5f - 0.03f * ArenaManager.Instance.round);
           
         }
 
@@ -198,7 +197,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     IEnumerator generateSingleBarrel(Vector3 pos){
-        Transform obj = Instantiate(obstacleList[1], pos + screenBounds.y * Vector3.up * 2f, Quaternion.identity);
+        Transform obj = Instantiate(obstacleList[1], pos + origScreenBounds.y * Vector3.up * 2f, Quaternion.identity);
         var mark = Instantiate(landMark, pos, Quaternion.identity);
         var _sr = obj.GetComponent<SpriteRenderer>();
   

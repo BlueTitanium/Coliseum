@@ -24,16 +24,16 @@ public class ArenaUIManager : MonoBehaviour
 
     private void Awake()
     {
-        // start of new code
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        // end of new code
+        // // start of new code
+        // if (Instance != null)
+        // {
+        //     Destroy(gameObject);
+        //     return;
+        // }
+        // // end of new code
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
     }
 
     private void Start() {
