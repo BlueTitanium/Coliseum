@@ -166,7 +166,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &146325949
 GameObject:
@@ -2861,7 +2861,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6117947503553485180, guid: 04a9c07ce88ecc449a6735f0de431faa, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6117947503553485180, guid: 04a9c07ce88ecc449a6735f0de431faa, type: 3}
       propertyPath: m_AnchorMax.x
@@ -82628,6 +82628,7 @@ MonoBehaviour:
   landMark: {fileID: 3260047233765504519, guid: f0b6f699e5c96e44d822b2cb9216e19b, type: 3}
   gridCol: {fileID: 356037101}
   water: {fileID: 776313838}
+  mineFieldOn: 0
 --- !u!1 &891215555
 GameObject:
   m_ObjectHideFlags: 0
@@ -84378,7 +84379,7 @@ Transform:
   - {fileID: 1052961766}
   - {fileID: 776313838}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1391648784
 GameObject:
@@ -85745,7 +85746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1560817775463939410, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1560817775463939410, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
       propertyPath: m_LocalPosition.x

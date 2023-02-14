@@ -22,8 +22,7 @@ public class EnemySpawner : MonoBehaviour
     int enemyNum;
     int enemyCount;
     int activeEnemyCount;
-
-
+    public bool mineFieldOn = true;
 
     private void Awake()
     {
@@ -218,7 +217,11 @@ public class EnemySpawner : MonoBehaviour
             //
             if(obj.transform.GetChild(0).GetComponent<ExplodingBomb>() != null)
             {
-                obj.transform.GetChild(0).GetComponent<ExplodingBomb>().explodeBomb();
+                if(!mineFieldOn)
+                {
+                    obj.transform.GetChild(0).GetComponent<ExplodingBomb>().explodeBomb();
+                }
+                
                 Destroy(mark.gameObject);
             } else
             {
