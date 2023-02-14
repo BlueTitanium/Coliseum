@@ -46,6 +46,7 @@ public class ArenaManager : MonoBehaviour
     public float enemyDamageMultiplier = 1;
     public float enemyHealthMultiplier = 1;
 
+    public bool delayUpgrade = false;
 
     // spawner
     public EnemySpawner _es;
@@ -138,14 +139,22 @@ public class ArenaManager : MonoBehaviour
             
             // upgrade
             yield return new WaitUntil(()=> (phase == phaseType.upgrade));
-            switchPhase(3);
+            if (delayUpgrade)
+            {
+                yield return new WaitForSeconds(2.5f);
+                switchPhase(3);
+            }
+            else
+            {
+                switchPhase(3);
+            } 
 
             // increment round
             round++;
             loopPhase = round % (phaseIndex.Count);
 
             // increment enemies stats
-            enemyDamageMultiplier += 0.2f;
+            enemyDamageMultiplier += 0.1f;
             enemyHealthMultiplier += 0.2f;
         }
     }
@@ -153,11 +162,13 @@ public class ArenaManager : MonoBehaviour
     public void switchPhase(int p){
         switch(p){
             case 0:
-            // normal battle
+                // normal battle
+                delayUpgrade = false;
             StartCoroutine(_es.spawnEnemies());
             break;
             case 1:
-            // survival
+                // survival
+                delayUpgrade = true;
             ArenaUIManager.Instance.showTimer();
             StartCoroutine(_es.spawnObstacle());
             break;

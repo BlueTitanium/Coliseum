@@ -32,7 +32,7 @@ public class SurvivalTimer : MonoBehaviour
             // start timer
             DOTween
             .To(()=>curTime, x=>curTime = x, 0f, 30f)
-            .SetEase(Ease.OutSine);
+            .SetEase(Ease.Linear);
             
 
         })
