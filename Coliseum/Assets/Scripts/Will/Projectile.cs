@@ -9,9 +9,11 @@ public class Projectile : MonoBehaviour
 
     public Vector2 direction;
     GameObject player;
+    public GameObject startParticles;
     public GameObject explosion;
 
     void Start() {
+        Instantiate(startParticles, transform.position, transform.rotation);
         print("spawned");
         player = GameObject.FindWithTag("Player");
         if (ArenaManager.Instance != null)

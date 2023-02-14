@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3123831178573756448}
   - component: {fileID: 3123831178573756455}
   m_Layer: 0
-  m_Name: Explosion
+  m_Name: S2_ExplosionPurple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3123831178573756454}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 3.19, y: -1.19, z: -0.16}
-  m_LocalScale: {x: 1.27, y: 1.27, z: 1.27}
+  m_LocalScale: {x: 0.52, y: 0.52, z: 0.52}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -222,8 +222,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0.52983636, b: 0.2028302, a: 1}
-      maxColor: {r: 0.6792453, g: 0.11854753, b: 0.11854753, a: 1}
+      minColor: {r: 0.7752673, g: 0.4764151, b: 1, a: 0.44705883}
+      maxColor: {r: 0.28603223, g: 0.11764707, b: 0.6784314, a: 0.5058824}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -3810,8 +3810,7 @@ ParticleSystem:
     exit: 0
     colliderQueryMode: 0
     radiusScale: 1
-    primitives:
-    - {fileID: 0}
+    primitives: []
   SubModule:
     serializedVersion: 2
     enabled: 0

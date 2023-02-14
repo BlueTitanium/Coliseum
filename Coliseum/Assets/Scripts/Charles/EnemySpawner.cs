@@ -206,7 +206,7 @@ public class EnemySpawner : MonoBehaviour
         obj
         .DOMove(
             pos,
-            2f
+            1f
         )
         .SetEase(
             Ease.InSine
@@ -217,16 +217,23 @@ public class EnemySpawner : MonoBehaviour
         })
         .OnComplete(()=>{ // hit ground
             //
-            obj.GetComponent<Collider2D>().enabled = false;
-            Destroy(mark.gameObject);
-            _sr.DOFade(
-                0f,
-                0.3f
-            )
-            .OnComplete(()=>{
-                
-                Destroy(obj.gameObject);
-            });
+            if(obj.GetComponent<ExplodingBomb>() != null)
+            {
+                obj.GetComponent<ExplodingBomb>().explodeBomb();
+                Destroy(mark.gameObject);
+            } else
+            {
+                obj.GetComponent<Collider2D>().enabled = false;
+                Destroy(mark.gameObject);
+                _sr.DOFade(
+                    0f,
+                    0.3f
+                )
+                .OnComplete(() => {
+
+                    Destroy(obj.gameObject);
+                });
+            }
         });
         yield return new WaitForSeconds(1f);
 
