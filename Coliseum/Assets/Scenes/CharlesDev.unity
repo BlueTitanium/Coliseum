@@ -83918,6 +83918,7 @@ MonoBehaviour:
   attackSpeedMultiplier: 1
   enemyDamageMultiplier: 1
   enemyHealthMultiplier: 1
+  delayUpgrade: 0
   _es: {fileID: 883182226}
 --- !u!4 &1162374569
 Transform:
@@ -84603,7 +84604,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413898532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6032363, y: 0.5206547, z: -10}
+  m_LocalPosition: {x: 1.6028314, y: 0.5206547, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -85686,7 +85687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1365410502, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.6832364
+      value: 1.6828314
       objectReference: {fileID: 0}
     - target: {fileID: 1365410502, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
       propertyPath: m_LocalPosition.y

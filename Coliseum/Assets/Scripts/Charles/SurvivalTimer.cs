@@ -53,10 +53,13 @@ public class SurvivalTimer : MonoBehaviour
         )
         .AppendInterval(1.5f)
         .OnComplete(()=>{
-            ArenaUIManager.Instance.isTimerOn = false;
-            ArenaUIManager.Instance.hideTimer();
-            // change phase
-            ArenaManager.Instance.phase = phaseType.upgrade;
+            if (gameObject != null)
+            {
+                ArenaUIManager.Instance.isTimerOn = false;
+                ArenaUIManager.Instance.hideTimer();
+                // change phase
+                ArenaManager.Instance.phase = phaseType.upgrade;
+            }
         });
     
     }

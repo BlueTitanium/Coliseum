@@ -11,7 +11,7 @@ public class ArenaUIManager : MonoBehaviour
     public RectTransform upgradeSlot;
     private List<RectTransform> upgradeSlotChildren = new List<RectTransform>{};
     [SerializeField] private List<TextMeshProUGUI> threeText = new List<TextMeshProUGUI>{};
-    string[] textToShows = {"hp up", "dash spd up", "atk spd up", "atk cd down", "atk dmg up"};
+    string[] textToShows = {"hp up", "move spd up", "atk spd up", "atk cd down", "atk dmg up"};
     [SerializeField] private List<Image> threeIcon = new List<Image>{};
     public List<Sprite> spriteToShow = new List<Sprite>{};
 
