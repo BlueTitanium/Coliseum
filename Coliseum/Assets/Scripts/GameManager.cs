@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
+        source.PlayOneShot(clips[2]);
         PlayerController.p.PausePlayer();
         menuAnimation["Menu_Open"].speed = 1;
         menuAnimation["Menu_Open"].time = 0;
@@ -95,6 +96,7 @@ public class GameManager : MonoBehaviour
 
     public void UnpauseGame()
     {
+        source.PlayOneShot(clips[2]);
         PlayerController.p.UnpausePlayer();
         menuAnimation["Menu_Open"].speed = -1;
         menuAnimation["Menu_Open"].time = menuAnimation["Menu_Open"].length;
