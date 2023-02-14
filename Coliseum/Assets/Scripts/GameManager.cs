@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
     public AudioMixerGroup masterMixerGroup;
     public AudioMixerGroup musicMixerGroup;
     public AudioMixerGroup sfxMixerGroup;
+
+    public AudioSource source;
+    public AudioClip[] clips;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +48,8 @@ public class GameManager : MonoBehaviour
         masterVolume = Settings.MasterVolume;
         musicVolume = Settings.MusicVolume;
         sfxVolume = Settings.SFXVolume;
+        source.clip = clips[0];
+        source.Play();
     }
 
     // Update is called once per frame
@@ -70,6 +75,8 @@ public class GameManager : MonoBehaviour
         startCam.Priority = 9;
         isPaused = false;
         isStarted = true;
+        source.clip = clips[1]; // game music
+        source.Play();
     }
 
     public void PauseGame()
@@ -118,6 +125,7 @@ public class GameManager : MonoBehaviour
 
     public void LoseScreen()
     {
+        source.Stop();
         if (lost == false)
         {
             SetStatistics();

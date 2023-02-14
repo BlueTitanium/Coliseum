@@ -301,6 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 941314765484555616}
+  source: {fileID: 0}
 --- !u!1 &941314765035879322
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,6 +595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 941314765484555616}
+  source: {fileID: 0}
 --- !u!1 &941314765430387983
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,6 +747,7 @@ GameObject:
   - component: {fileID: 941314765484555623}
   - component: {fileID: 941314765484555617}
   - component: {fileID: 1822027992}
+  - component: {fileID: 3626971797124104846}
   m_Layer: 0
   m_Name: MeleeEnemy
   m_TagString: MeleeEnemy
@@ -802,6 +805,7 @@ MonoBehaviour:
   hasHit: 0
   explosionPrefab: {fileID: 3123831178573756454, guid: c6a27e9653733694a923b798f17fd021, type: 3}
   disabled: 0
+  source: {fileID: 3626971797124104846}
 --- !u!50 &941314765484555623
 Rigidbody2D:
   serializedVersion: 4
@@ -865,6 +869,102 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!82 &3626971797124104846
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941314765484555621}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 2179452225197369064, guid: b9f93f837f645ff47a316436404e09a0, type: 2}
+  m_audioClip: {fileID: 8300000, guid: dfb7a5c41bf354e7ab9bf46b62994429, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.3
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &941314765497686847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,6 +1556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 941314765484555616}
+  source: {fileID: 0}
 --- !u!1001 &941314764954540068
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -51,6 +51,10 @@ public class PlayerController : MonoBehaviour
 
     public bool disabled = false;
     Vector2 tempVelocity;
+
+    public AudioSource source;
+    public AudioClip[] clips;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -135,6 +139,8 @@ public class PlayerController : MonoBehaviour
             {
                 dashLeft = dashTime;
                 dashCDLeft = dashCDTime;
+                source.clip = clips[3];
+                source.Play();
                 StartCoroutine(handleDashTrails(dashTime));
             }
 
@@ -201,6 +207,8 @@ public class PlayerController : MonoBehaviour
         attackCDLeft = attackCD;
         if (dashLeft > 0)
         {
+            source.clip = clips[0];
+            source.Play();
             attacking = true;
             attackAnim.SetTrigger("DashAttack");
             yield return new WaitUntil(() => attackAnim.GetCurrentAnimatorStateInfo(0).IsName("Player_DashAttack"));
@@ -209,6 +217,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            source.clip = clips[1];
+            source.Play();
             attacking = true;
             attackAnim.SetFloat("AttackSpeed", attackSpeed);
             attackAnim.SetTrigger("Attack");
@@ -248,6 +258,8 @@ public class PlayerController : MonoBehaviour
 
         if (disabled || (curHP > 0 && dashLeft <= 0 && canTakeDamage <= 0))
         {
+            source.clip = clips[2];
+            source.Play();
             CameraShake.cs.cameraShake(.3f, 3.3f);
             DamageNumberSpawner.Instance.spawnDamageNumberOnce(transform.position, (int) amount);
             curHP -= amount;
@@ -273,6 +285,8 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
         //do something
+        source.clip = clips[4];
+        source.Play();
         disabled = true;
         GameManager.gm.LoseScreen();
     }

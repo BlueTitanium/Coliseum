@@ -22,6 +22,8 @@ public class ArenaUIManager : MonoBehaviour
     public TextMeshProUGUI titleText;
     public bool isTimerOn;
 
+    public AudioSource source;
+
     private void Awake()
     {
         // // start of new code
@@ -102,6 +104,7 @@ public class ArenaUIManager : MonoBehaviour
         .OnStart(()=>{
             //upgrade the stats
             ArenaManager.Instance.adjustSingleStats((upgradeType)ArenaManager.Instance.curUpgrades[i]);
+            source.Play();
             upgradeSlot.GetComponent<CanvasGroup>().interactable = false;
         })
         .Append(

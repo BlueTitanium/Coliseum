@@ -27,6 +27,10 @@ public class RangedEnemy : MonoBehaviour
     public bool hasHit = false;
     public GameObject explosionPrefab;
     public bool disabled = false;
+
+    public AudioSource source;
+    public AudioClip[] clips;
+
     void Start() {
         player = FindObjectOfType<PlayerController>().gameObject;
         if(ArenaManager.Instance != null)
@@ -89,6 +93,8 @@ public class RangedEnemy : MonoBehaviour
     }
     IEnumerator ShootProjectile()
     {
+        source.clip = clips[0];
+        source.Play();
         wand.Play();
         yield return new WaitForSeconds(.5f);
         GameObject newProjectile = Instantiate(testProjectile, shootPoint.position, Quaternion.identity);
@@ -110,6 +116,8 @@ public class RangedEnemy : MonoBehaviour
     {
         if (invuln <= 0)
         {
+            source.clip = clips[1];
+            source.Play();
             CameraShake.cs.cameraShake(.3f, 2.5f);
             DamageNumberSpawner.Instance.spawnDamageNumberOnce(transform.position, (int)damage);
             curHP -= damage;

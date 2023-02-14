@@ -25,6 +25,9 @@ public class MeleeEnemy : MonoBehaviour
     public bool hasHit = false;
     public GameObject explosionPrefab;
     public bool disabled = false;
+
+    public AudioSource source;
+
     void Start() {
         player = PlayerController.p.transform.gameObject;
         if (ArenaManager.Instance != null)
@@ -119,6 +122,7 @@ public class MeleeEnemy : MonoBehaviour
     {
         if(invuln <= 0)
         {
+            source.Play();
             CameraShake.cs.cameraShake(.3f, 2.5f);
             curHP -= damage;
             DamageNumberSpawner.Instance.spawnDamageNumberOnce(transform.position, (int)damage);

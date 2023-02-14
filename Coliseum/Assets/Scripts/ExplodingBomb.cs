@@ -8,6 +8,8 @@ public class ExplodingBomb : MonoBehaviour
     public float damage = 20;
     public float knockback = 3;
 
+    public AudioSource source;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,7 @@ public class ExplodingBomb : MonoBehaviour
     public void ExplodeEffect()
     {
         CameraShake.cs.cameraShake(.3f, 2.5f);
+        source.Play();
     }
 
     public void Die()
