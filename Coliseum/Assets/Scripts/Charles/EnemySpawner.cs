@@ -216,9 +216,9 @@ public class EnemySpawner : MonoBehaviour
         })
         .OnComplete(()=>{ // hit ground
             //
-            if(obj.GetComponent<ExplodingBomb>() != null)
+            if(obj.transform.GetChild(0).GetComponent<ExplodingBomb>() != null)
             {
-                obj.GetComponent<ExplodingBomb>().explodeBomb();
+                obj.transform.GetChild(0).GetComponent<ExplodingBomb>().explodeBomb();
                 Destroy(mark.gameObject);
             } else
             {
