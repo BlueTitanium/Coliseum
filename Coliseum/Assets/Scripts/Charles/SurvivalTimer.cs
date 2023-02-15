@@ -18,7 +18,7 @@ public class SurvivalTimer : MonoBehaviour
 
     public void startTimer(){
 
-
+        timer.text = $"{maxTime}:00";
         Sequence sq = DOTween.Sequence();
         sq
         .SetId("timer")
@@ -26,7 +26,7 @@ public class SurvivalTimer : MonoBehaviour
             // initialize data
             ArenaUIManager.Instance.isTimerOn = true;
             timer.color = Color.white;
-            timer.text = "15:00";
+            timer.text = $"{maxTime}:00";
             curTime = maxTime;
             // start timer
             DOTween
@@ -35,7 +35,7 @@ public class SurvivalTimer : MonoBehaviour
             
 
         })
-        .AppendInterval(13f)
+        .AppendInterval(10f)
         .Append(
             timer
             .DOColor(Color.red, 3f)
@@ -44,7 +44,7 @@ public class SurvivalTimer : MonoBehaviour
         .Join(
             timer.rectTransform
             .DOShakeAnchorPos(
-                duration: 16f,
+                duration: 5f,
                 strength: 10f,
                 vibrato: 30
             )

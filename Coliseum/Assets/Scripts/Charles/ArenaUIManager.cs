@@ -19,6 +19,7 @@ public class ArenaUIManager : MonoBehaviour
     public RectTransform timer;
     public RectTransform title;
     public CanvasGroup titleCanvasGroup;
+    public TextMeshProUGUI timerText;
     public TextMeshProUGUI titleText;
     public bool isTimerOn;
 
@@ -39,6 +40,7 @@ public class ArenaUIManager : MonoBehaviour
     }
 
     private void Start() {
+        timerText = timer.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         isTimerOn = false;
         for(int i = 0; i < 3; i++){
             // get three rect transform
@@ -126,6 +128,8 @@ public class ArenaUIManager : MonoBehaviour
         .SetId("showTimer")
         .OnStart(()=>{
             timer.localPosition = new Vector3(0, Screen.height + timer.sizeDelta.y, 0);
+            timerText.color = Color.white;
+            timerText.text = "15:00";
         })
         .Append(
             timer
@@ -150,13 +154,7 @@ public class ArenaUIManager : MonoBehaviour
             .SetEase(Ease.InBack)
         )
         .OnComplete(()=>{
-            if (gameObject != null)
-            {
-                if(timer != null)
-                {
-                    timer.GetComponent<TextMeshProUGUI>().color = Color.white;
-                }
-            }
+            timerText.color = Color.white;
         });
     }
 

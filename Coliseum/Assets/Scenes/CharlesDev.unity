@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45de25c953dc88409bac8e9326d5b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 30
+  maxTime: 15
   curTime: 0
   timer: {fileID: 1225051234}
 --- !u!225 &146325952
@@ -84128,7 +84128,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 30:00
+  m_text: 15:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0c7280e69b1ee6547a756f73990119a9, type: 2}
   m_sharedMaterial: {fileID: 1873245146410166103, guid: 0c7280e69b1ee6547a756f73990119a9, type: 2}
@@ -84702,7 +84702,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413898532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6018194, y: 0.5206547, z: -10}
+  m_LocalPosition: {x: 1.6023321, y: 0.5206547, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -85790,6 +85790,10 @@ PrefabInstance:
     - target: {fileID: 1271330370, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1365410502, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.6823322
       objectReference: {fileID: 0}
     - target: {fileID: 1523199364, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
       propertyPath: m_AnchorMax.x

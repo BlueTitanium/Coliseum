@@ -175,7 +175,7 @@ public class EnemySpawner : MonoBehaviour
         )
         .SetRelative();
 
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(15f);
         _sr
         .DOFade(
             0f,
