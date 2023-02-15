@@ -8,7 +8,7 @@ public class SpikeTrap : MonoBehaviour
     [SerializeField]
     float damage, time, maxInterval;
     float interval;
-    bool soundBool;
+    //bool soundBool;
 
     public AudioSource source;
 
@@ -28,10 +28,6 @@ public class SpikeTrap : MonoBehaviour
             interval -= Time.deltaTime;
         } else {
             spriteAnimator.SetTrigger("Activate");
-            if (soundBool) {
-                source.Play();
-                soundBool = false; //prevents clip from playing more than once
-            }
             Invoke("setMaxInterval", 1f); // can adjust this number
         }
     }
@@ -43,8 +39,13 @@ public class SpikeTrap : MonoBehaviour
         }
     }
 
+    public void PlaySound()
+    {
+        source.Play();
+    }
+
     void setMaxInterval() {
         interval = maxInterval;
-        soundBool = true;
+        //soundBool = true;
     }
 }

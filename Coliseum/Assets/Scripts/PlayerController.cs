@@ -207,7 +207,7 @@ public class PlayerController : MonoBehaviour
         attackCDLeft = attackCD;
         if (dashLeft > 0)
         {
-            source.clip = clips[0];
+            source.clip = clips[1];
             source.Play();
             attacking = true;
             attackAnim.SetTrigger("DashAttack");
@@ -217,7 +217,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            source.clip = clips[1];
+            source.clip = clips[0];
             source.Play();
             attacking = true;
             attackAnim.SetFloat("AttackSpeed", attackSpeed);
@@ -285,7 +285,7 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
         //do something
-        source.clip = clips[4];
+        //source.clip = clips[4];
         source.Play();
         disabled = true;
         GameManager.gm.LoseScreen();

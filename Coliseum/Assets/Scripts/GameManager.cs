@@ -35,10 +35,12 @@ public class GameManager : MonoBehaviour
     public AudioMixerGroup sfxMixerGroup;
 
     public AudioSource source;
+    public AudioSource sfxAud;
     public AudioClip[] clips;
     // Start is called before the first frame update
     void Start()
     {
+        source.loop = true;
         killCount = 0;
         startCam.Priority = 11;
         gm = this;
@@ -48,6 +50,9 @@ public class GameManager : MonoBehaviour
         masterVolume = Settings.MasterVolume;
         musicVolume = Settings.MusicVolume;
         sfxVolume = Settings.SFXVolume;
+        masterSlider.value = masterVolume;
+        musicSlider.value = musicVolume;
+        sfxSlider.value = sfxVolume;
         source.clip = clips[0];
         source.Play();
     }
@@ -81,7 +86,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        source.PlayOneShot(clips[2]);
+        sfxAud.PlayOneShot(clips[2]);
         PlayerController.p.PausePlayer();
         menuAnimation["Menu_Open"].speed = 1;
         menuAnimation["Menu_Open"].time = 0;
@@ -96,7 +101,7 @@ public class GameManager : MonoBehaviour
 
     public void UnpauseGame()
     {
-        source.PlayOneShot(clips[2]);
+        sfxAud.PlayOneShot(clips[2]);
         PlayerController.p.UnpausePlayer();
         menuAnimation["Menu_Open"].speed = -1;
         menuAnimation["Menu_Open"].time = menuAnimation["Menu_Open"].length;
@@ -127,9 +132,12 @@ public class GameManager : MonoBehaviour
 
     public void LoseScreen()
     {
-        source.Stop();
         if (lost == false)
         {
+            source.Stop();
+            source.clip = clips[3]; // game music
+            source.Play();
+            source.loop = false;
             SetStatistics();
             lost = true;
             loseAnimation.Play();

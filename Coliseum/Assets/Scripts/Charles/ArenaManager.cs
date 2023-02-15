@@ -146,6 +146,7 @@ public class ArenaManager : MonoBehaviour
             }
             else
             {
+                yield return new WaitForSeconds(.3f);
                 switchPhase(3);
             } 
 

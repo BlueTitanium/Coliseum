@@ -93,7 +93,7 @@ public class RangedEnemy : MonoBehaviour
     }
     IEnumerator ShootProjectile()
     {
-        source.clip = clips[0];
+        //source.clip = clips[0];
         source.Play();
         wand.Play();
         yield return new WaitForSeconds(.5f);

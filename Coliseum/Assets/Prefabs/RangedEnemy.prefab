@@ -927,7 +927,7 @@ MonoBehaviour:
   disabled: 0
   source: {fileID: -2198590385275390921}
   clips:
-  - {fileID: 8300000, guid: 8af55260d033b4f3493ab0dcc9c8e6a5, type: 3}
+  - {fileID: 0}
   - {fileID: 8300000, guid: dfb7a5c41bf354e7ab9bf46b62994429, type: 3}
 --- !u!111 &7267612253967310008
 Animation:
@@ -1003,8 +1003,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 2179452225197369064, guid: b9f93f837f645ff47a316436404e09a0, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.338
   m_Pitch: 1
   Loop: 0
   Mute: 0

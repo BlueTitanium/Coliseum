@@ -84,6 +84,7 @@ public class ArenaUIManager : MonoBehaviour
         .OnStart(()=>{
             upgradeSlot.GetComponent<CanvasGroup>().interactable = false;
             upgradeSlot.localPosition = new Vector3(0, Screen.height + upgradeSlot.sizeDelta.y, 0);
+            source.Play();
         })
         .Append(
             upgradeSlot
@@ -104,7 +105,7 @@ public class ArenaUIManager : MonoBehaviour
         .OnStart(()=>{
             //upgrade the stats
             ArenaManager.Instance.adjustSingleStats((upgradeType)ArenaManager.Instance.curUpgrades[i]);
-            source.Play();
+            //source.Play();
             upgradeSlot.GetComponent<CanvasGroup>().interactable = false;
         })
         .Append(
@@ -149,7 +150,10 @@ public class ArenaUIManager : MonoBehaviour
             .SetEase(Ease.InBack)
         )
         .OnComplete(()=>{
-            timer.GetComponent<TextMeshProUGUI>().color = Color.white;
+            if (gameObject != null)
+            {
+                timer.GetComponent<TextMeshProUGUI>().color = Color.white;
+            }
         });
     }
 
