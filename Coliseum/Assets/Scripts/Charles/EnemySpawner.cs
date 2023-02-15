@@ -60,7 +60,7 @@ public class EnemySpawner : MonoBehaviour
             float randomAngle = Random.Range(0f, 2f * Mathf.PI);
             water.gameObject.layer = LayerMask.NameToLayer("Default");
             Transform obj = Instantiate(
-                enemyList[(round < 2) ? 0 : Random.Range(0, enemyList.Count)],
+                enemyList[(round < 1) ? 0 : (round == 1) ? 1 : Random.Range(0, enemyList.Count)],
                 new Vector2(origScreenBounds.x * Mathf.Cos(randomAngle) * 2, origScreenBounds.y * Mathf.Sin(randomAngle) * 2),
                 Quaternion.identity
             );

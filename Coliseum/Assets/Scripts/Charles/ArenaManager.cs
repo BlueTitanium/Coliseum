@@ -100,15 +100,15 @@ public class ArenaManager : MonoBehaviour
         switch(i){
             case upgradeType.hpUp:
                 Debug.Log("hp up");
-                healthMultiplier += 0.2f;
+                healthMultiplier += 0.3f;
                 break;
             case upgradeType.dashSpdUp:
                 Debug.Log("dash spd up");
-                dashSpeedMultiplier += 0.2f;
+                dashSpeedMultiplier += 0.3f;
                 break;
             case upgradeType.atkSpdUp:
                 Debug.Log("atk spd up");
-                attackSpeedMultiplier += 0.2f;
+                attackSpeedMultiplier += 0.3f;
                 break;
             case upgradeType.atkCDDown:
                 Debug.Log("atk cd down");
@@ -116,7 +116,7 @@ public class ArenaManager : MonoBehaviour
                 break;
             case upgradeType.DMGUp:
                 Debug.Log("dmgup");
-                damageMultiplier += 0.3f;
+                damageMultiplier += 0.4f;
                 Debug.Log(damageMultiplier);
                 break;
         }
@@ -155,8 +155,8 @@ public class ArenaManager : MonoBehaviour
             loopPhase = round % (phaseIndex.Count);
 
             // increment enemies stats
-            enemyDamageMultiplier += 0.1f;
-            enemyHealthMultiplier += 0.2f;
+            enemyDamageMultiplier += 0.05f;
+            enemyHealthMultiplier += 0.1f;
         }
     }
 
