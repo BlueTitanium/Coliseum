@@ -23,7 +23,7 @@ public class SurvivalTimer : MonoBehaviour
             DOTween.Pause("timer");
         }else if(!GameManager.gm.isPaused && !isRunning){
             isRunning = true;
-            DOTween.Restart("timer");
+            DOTween.Play("timer");
         }
     }
 
