@@ -45,8 +45,8 @@ public class EnemySpawner : MonoBehaviour
             DOTween.Pause("spike");
         }else if(!GameManager.gm.isPaused && !isRunning){
             isRunning = true;
-            DOTween.Restart("spike");
-            DOTween.Restart("barrel");
+            DOTween.Play("spike");
+            DOTween.Play("barrel");
         }
     }
 
