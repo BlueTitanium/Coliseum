@@ -6,12 +6,11 @@ using TMPro;
 
 public class SurvivalTimer : MonoBehaviour
 {
-    [SerializeField] private float maxTime = 30;
-    [SerializeField] private float curTime;
+    [SerializeField] private float maxTime = 15f;
+    [SerializeField] private float curTime = 15f;
     public TextMeshProUGUI timer;
 
     private void Update() {
-
         if(ArenaUIManager.Instance.isTimerOn){
             timer.text = $"{Mathf.Floor(curTime):00}:{Mathf.Floor(curTime * 100f) % 100:00}";
         }
@@ -27,11 +26,11 @@ public class SurvivalTimer : MonoBehaviour
             // initialize data
             ArenaUIManager.Instance.isTimerOn = true;
             timer.color = Color.white;
-            timer.text = "30:00";
+            timer.text = "15:00";
             curTime = maxTime;
             // start timer
             DOTween
-            .To(()=>curTime, x=>curTime = x, 0f, 30f)
+            .To(()=>curTime, x=>curTime = x, 0f, 15f)
             .SetEase(Ease.Linear);
             
 

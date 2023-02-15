@@ -85767,6 +85767,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 469004577, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 694656423, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 716832149, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
       propertyPath: m_Camera
       value: 
@@ -85821,6 +85829,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1590356709, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
       propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782379600, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}
+      propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1869083152, guid: 4e5179a3070d37e43afaa7e795f42568, type: 3}

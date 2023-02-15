@@ -152,7 +152,10 @@ public class ArenaUIManager : MonoBehaviour
         .OnComplete(()=>{
             if (gameObject != null)
             {
-                timer.GetComponent<TextMeshProUGUI>().color = Color.white;
+                if(timer != null)
+                {
+                    timer.GetComponent<TextMeshProUGUI>().color = Color.white;
+                }
             }
         });
     }

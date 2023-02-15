@@ -1,4 +1,5 @@
 using Cinemachine;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -134,6 +135,7 @@ public class GameManager : MonoBehaviour
     {
         if (lost == false)
         {
+            DOTween.KillAll();
             source.Stop();
             source.clip = clips[3]; // game music
             source.Play();
@@ -152,6 +154,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateMixerVolume()
     {
+        print("Changed");
         masterMixerGroup.audioMixer.SetFloat("MasterVolume", Mathf.Log10(masterVolume) * 20);
         musicMixerGroup.audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume) * 20);
         sfxMixerGroup.audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20);
