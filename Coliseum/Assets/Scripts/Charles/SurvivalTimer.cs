@@ -10,9 +10,20 @@ public class SurvivalTimer : MonoBehaviour
     [SerializeField] private float curTime = 15f;
     public TextMeshProUGUI timer;
 
+    bool isRunning = false;
+
     private void Update() {
         if(ArenaUIManager.Instance.isTimerOn){
             timer.text = $"{Mathf.Floor(curTime):00}:{Mathf.Floor(curTime * 100f) % 100:00}";
+        }
+
+        if(GameManager.gm.isPaused && isRunning){
+            isRunning = false;
+            Debug.Log("pause timer");
+            DOTween.Pause("timer");
+        }else if(!GameManager.gm.isPaused && !isRunning){
+            isRunning = true;
+            DOTween.Restart("timer");
         }
     }
 
@@ -31,6 +42,7 @@ public class SurvivalTimer : MonoBehaviour
             // start timer
             DOTween
             .To(()=>curTime, x=>curTime = x, 0f, 15f)
+            .SetId("timer")
             .SetEase(Ease.Linear);
             
 

@@ -24,6 +24,9 @@ public class EnemySpawner : MonoBehaviour
     int activeEnemyCount;
     public bool mineFieldOn = true;
 
+    bool isRunning = false;
+
+
     private void Awake()
     {
 
@@ -35,7 +38,16 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-
+        if(GameManager.gm.isPaused && isRunning){
+            isRunning = false;
+            Debug.Log("pause obstacle");
+            DOTween.Pause("barrel");
+            DOTween.Pause("spike");
+        }else if(!GameManager.gm.isPaused && !isRunning){
+            isRunning = true;
+            DOTween.Restart("spike");
+            DOTween.Restart("barrel");
+        }
     }
 
     public IEnumerator spawnEnemies()
@@ -138,6 +150,7 @@ public class EnemySpawner : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
         while(ArenaUIManager.Instance.isTimerOn && !GameManager.gm.lost){
+            yield return new WaitUntil(()=>(!GameManager.gm.isPaused));
             Vector2 pos;
             a = fieldBounds.y * Mathf.Sqrt(Random.Range(0f, 1f));
             b = fieldBounds.y * Mathf.Sqrt(Random.Range(0f, 1f));
@@ -190,7 +203,8 @@ public class EnemySpawner : MonoBehaviour
         )
         .OnComplete(()=>{
             Destroy(obj.gameObject);
-        });
+        })
+        .SetId("spike");
         
 
     }
@@ -236,7 +250,8 @@ public class EnemySpawner : MonoBehaviour
                     Destroy(obj.gameObject);
                 });
             }
-        });
+        })
+        .SetId("barrel");
         yield return new WaitForSeconds(1f);
 
 
